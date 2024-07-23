@@ -1,20 +1,26 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { useTodo } from "../context";
+import { useDispatch } from "react-redux";
+import { deleteTodo, toggleTodo, updateTodo } from "../features/todo/todoSlice";
 
 function TodoItem({ todo }) {
-  const { deleteTodo, toggleComplete, updateTodo } = useTodo();
-
   const [isTodoEditable, setIsTodoEditable] = useState(false);
   const [todoMsg, setTodoMsg] = useState(todo.content);
 
+  const dispacth = useDispatch();
+
+  const deleteTodos = () => {
+    dispacth(deleteTodo(todo._id));
+  };
+
   const editTodo = () => {
-    updateTodo(todo._id, { ...todo, content: todoMsg });
+    const content = todoMsg;
+    dispacth(updateTodo({ id: todo._id, content }));
     setIsTodoEditable(false);
   };
 
   const toggleCompleted = () => {
-    toggleComplete(todo._id);
+    dispacth(toggleTodo(todo._id));
   };
 
   return (
@@ -46,7 +52,9 @@ function TodoItem({ todo }) {
 
           if (isTodoEditable) {
             editTodo();
-          } else setIsTodoEditable((prev) => !prev);
+          } else {
+            setIsTodoEditable((prev) => !prev);
+          }
         }}
         disabled={todo.isCompleted}
       >
@@ -55,7 +63,7 @@ function TodoItem({ todo }) {
 
       <button
         className="inline-flex w-8 h-8 rounded-full text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0"
-        onClick={() => deleteTodo(todo._id)}
+        onClick={deleteTodos}
       >
         ❌
       </button>

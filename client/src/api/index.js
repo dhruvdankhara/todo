@@ -6,20 +6,22 @@ const apiClient = axios.create({
   timeout: 100000,
 });
 
-const fetchAllTodos = async () => {
+const fetchAllTodosApi = async () => {
   return await apiClient.get("/todos");
 };
 
-const createTodoApi = async (todo) => {
-  return await apiClient.post("/todos", { content: todo.content });
+const createTodoApi = async (content) => {
+  const response = await apiClient.post("/todos", { content });
+  return response;
 };
 
 const deleteTodoApi = async (id) => {
   return await apiClient.delete(`/todos/${id}`);
 };
 
-const updateTodoApi = async (id, todo) => {
-  return await apiClient.post(`/todos/${id}`, { content: todo.content });
+const updateTodoApi = async (id, content) => {
+  const response = await apiClient.post(`/todos/${id}`, { content });
+  return response;
 };
 
 const toggleCompleteApi = async (id) => {
@@ -27,7 +29,7 @@ const toggleCompleteApi = async (id) => {
 };
 
 export {
-  fetchAllTodos,
+  fetchAllTodosApi,
   createTodoApi,
   deleteTodoApi,
   updateTodoApi,
