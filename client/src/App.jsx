@@ -26,54 +26,6 @@ function App() {
     dispacth(fetchAllTodos());
   }, []);
 
-  // const addTodo = async (todo) => {
-  //   try {
-  //     const response = await createTodoApi(todo);
-  //     console.log("add todo : ", response);
-  //     setTodos([response.data.data, ...todos]);
-  //   } catch (error) {
-  //     console.log("error in add todo : ", error);
-  //   }
-  // };
-
-  // const deleteTodo = async (id) => {
-  //   try {
-  //     const response = await deleteTodoApi(id);
-  //     console.log("delete todo : ", response);
-  //     setTodos((prevTodos) => prevTodos.filter((todo) => todo._id !== id));
-  //   } catch (error) {
-  //     console.log("error in delete todo : ", error);
-  //   }
-  // };
-
-  // const updateTodo = async (id, todo) => {
-  //   try {
-  //     const response = await updateTodoApi(id, todo);
-  //     console.log("update todo : ", response);
-  //     setTodos((prevTodos) =>
-  //       prevTodos.map((todo) =>
-  //         todo._id === id ? { ...todo, content: todo.content } : todo
-  //       )
-  //     );
-  //   } catch (error) {
-  //     console.log("error in update todo : ", error);
-  //   }
-  // };
-
-  // const toggleComplete = async (id) => {
-  //   try {
-  //     const response = await toggleCompleteApi(id);
-  //     console.log("toggle complete : ", response);
-  //     setTodos((prevTodos) =>
-  //       prevTodos.map((todo) =>
-  //         todo._id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
-  //       )
-  //     );
-  //   } catch (error) {
-  //     console.log("error in toggle complete : ", error);
-  //   }
-  // };
-
   return (
     <div className="min-h-screen py-8">
       <div className="w-full max-w-2xl mx-auto shadow-lg rounded-3xl p-10 border border-black">
