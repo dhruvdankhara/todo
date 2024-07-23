@@ -27,7 +27,7 @@ const createTodo = async (req, res) => {
 
 const getAllTodos = async (req, res) => {
   try {
-    const todos = await Todo.find().select("-__v ").sort({ createdAt: -1 });
+    const todos = await Todo.find().select("-__v ").sort({ createdAt: 1 });
 
     if (!todos) {
       throw new ApiError(404, "No Todos found");

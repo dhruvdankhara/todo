@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteTodo, toggleTodo, updateTodo } from "../features/todo/todoSlice";
 
 function TodoItem({ todo }) {
   const [isTodoEditable, setIsTodoEditable] = useState(false);
   const [todoMsg, setTodoMsg] = useState(todo.content);
+
+  const todoInputRef = useRef(null);
 
   const dispacth = useDispatch();
 
@@ -37,12 +39,13 @@ function TodoItem({ todo }) {
       />
       <input
         type="text"
-        className={`border outline-none w-full bg-transparent rounded-lg capitalize font-semibold  ${
+        className={`border outline-none w-full bg-transparent rounded-lg capitalize font-semibold focus:outline-none focus:ring focus:border-blue-500 ${
           isTodoEditable ? "border-black/10 px-2" : "border-transparent"
         } ${todo.isCompleted ? "line-through" : ""}`}
         value={todoMsg}
         onChange={(e) => setTodoMsg(e.target.value)}
         readOnly={!isTodoEditable}
+        ref={todoInputRef}
       />
 
       <button
@@ -53,6 +56,7 @@ function TodoItem({ todo }) {
           if (isTodoEditable) {
             editTodo();
           } else {
+            todoInputRef.current.focus();
             setIsTodoEditable((prev) => !prev);
           }
         }}
