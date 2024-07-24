@@ -61,9 +61,7 @@ function App() {
         <div className="flex flex-wrap gap-y-3">
           {isLoading ? (
             <div>Loading...</div>
-          ) : todos.length === 0 ? (
-            <div>No Todos Found! Please add some todos to see here.</div>
-          ) : (
+          ) : todos && todos.length > 0 ? (
             todos.map((todo) => {
               if (option == "all") {
                 return (
@@ -79,6 +77,10 @@ function App() {
                 );
               }
             })
+          ) : (
+            <div className="text-center font-bold">
+              No Todos Found! Please add some todos to see here.
+            </div>
           )}
         </div>
       </div>
