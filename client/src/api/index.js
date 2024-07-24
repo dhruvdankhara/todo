@@ -11,8 +11,7 @@ const fetchAllTodosApi = async () => {
 };
 
 const createTodoApi = async (content) => {
-  const response = await apiClient.post("/todos", { content });
-  return response;
+  return await apiClient.post("/todos", { content });
 };
 
 const deleteTodoApi = async (id) => {
@@ -20,8 +19,7 @@ const deleteTodoApi = async (id) => {
 };
 
 const updateTodoApi = async (id, content) => {
-  const response = await apiClient.post(`/todos/${id}`, { content });
-  return response;
+  return await apiClient.post(`/todos/${id}`, { content });
 };
 
 const toggleCompleteApi = async (id) => {

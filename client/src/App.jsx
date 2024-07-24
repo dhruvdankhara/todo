@@ -6,9 +6,8 @@ import { fetchAllTodos } from "./features/todo/todoSlice";
 
 function App() {
   const todos = useSelector((state) => state.todos);
-  const loading = useSelector((state) => state.isLoading);
+  const isLoading = useSelector((state) => state.isLoading);
   const [option, setOption] = useState("all");
-  // const [loading, setLoading] = useState(false);
 
   const dispacth = useDispatch();
 
@@ -60,7 +59,7 @@ function App() {
           </div>
         </div>
         <div className="flex flex-wrap gap-y-3">
-          {loading ? (
+          {isLoading ? (
             <div>Loading...</div>
           ) : todos.length === 0 ? (
             <div>No Todos Found! Please add some todos to see here.</div>
