@@ -1,20 +1,16 @@
 import { useState } from "react";
-import { useTodo } from "../context";
+import { useDispatch } from "react-redux";
+import { createTodo } from "../features/todo/todoSlice";
 
 function TodoForm() {
   const [todo, setTodo] = useState("");
 
-  const { addTodo } = useTodo();
+  const dispatch = useDispatch();
 
   const add = (e) => {
     e.preventDefault();
-
     if (!todo) return;
-
-    addTodo({
-      content: todo,
-    });
-
+    dispatch(createTodo(todo));
     setTodo("");
   };
 

@@ -1,20 +1,28 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import { useTodo } from "../context";
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { deleteTodo, toggleTodo, updateTodo } from "../features/todo/todoSlice";
 
 function TodoItem({ todo }) {
-  const { deleteTodo, toggleComplete, updateTodo } = useTodo();
-
   const [isTodoEditable, setIsTodoEditable] = useState(false);
   const [todoMsg, setTodoMsg] = useState(todo.content);
 
+  const todoInputRef = useRef(null);
+
+  const dispacth = useDispatch();
+
+  const deleteTodos = () => {
+    dispacth(deleteTodo(todo._id));
+  };
+
   const editTodo = () => {
-    updateTodo(todo._id, { ...todo, content: todoMsg });
+    const content = todoMsg;
+    dispacth(updateTodo({ id: todo._id, content }));
     setIsTodoEditable(false);
   };
 
   const toggleCompleted = () => {
-    toggleComplete(todo._id);
+    dispacth(toggleTodo(todo._id));
   };
 
   return (
@@ -31,12 +39,13 @@ function TodoItem({ todo }) {
       />
       <input
         type="text"
-        className={`border outline-none w-full bg-transparent rounded-lg capitalize font-semibold  ${
+        className={`border outline-none w-full bg-transparent rounded-lg capitalize font-semibold focus:outline-none focus:ring focus:border-blue-500 ${
           isTodoEditable ? "border-black/10 px-2" : "border-transparent"
         } ${todo.isCompleted ? "line-through" : ""}`}
         value={todoMsg}
         onChange={(e) => setTodoMsg(e.target.value)}
         readOnly={!isTodoEditable}
+        ref={todoInputRef}
       />
 
       <button
@@ -46,7 +55,10 @@ function TodoItem({ todo }) {
 
           if (isTodoEditable) {
             editTodo();
-          } else setIsTodoEditable((prev) => !prev);
+          } else {
+            todoInputRef.current.focus();
+            setIsTodoEditable((prev) => !prev);
+          }
         }}
         disabled={todo.isCompleted}
       >
@@ -55,7 +67,7 @@ function TodoItem({ todo }) {
 
       <button
         className="inline-flex w-8 h-8 rounded-full text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0"
-        onClick={() => deleteTodo(todo._id)}
+        onClick={deleteTodos}
       >
         ❌
       </button>
