@@ -2,6 +2,10 @@ import { Schema, model } from "mongoose";
 
 const todoSchema = new Schema(
   {
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
     content: {
       type: String,
       required: true,

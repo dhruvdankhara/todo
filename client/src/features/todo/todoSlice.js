@@ -41,7 +41,6 @@ export const updateTodo = createAsyncThunk(
 const initialState = {
   todos: [],
   isLoading: false,
-  isError: false,
 };
 
 export const todoSlice = createSlice({

@@ -1,16 +1,18 @@
-import Todo from "../model/todo.model.js";
-import { ApiResponse } from "../util/ApiResponse.js";
-import { ApiError, handleApiError } from "../util/errorHandler.js";
+import Todo from "../../model/todo/todo.model.js";
+import { ApiResponse } from "../../util/ApiResponse.js";
+import { ApiError, handleApiError } from "../../util/errorHandler.js";
 
 const createTodo = async (req, res) => {
   try {
     const { content } = req.body;
+    const user = req.user;
 
     if (!content) {
       throw new ApiError(400, "Todo content is required");
     }
 
     const newTodo = await Todo.create({
+      author: user._id,
       content,
     });
 
@@ -27,7 +29,11 @@ const createTodo = async (req, res) => {
 
 const getAllTodos = async (req, res) => {
   try {
-    const todos = await Todo.find().select("-__v ").sort({ createdAt: 1 });
+    const user = req.user;
+
+    const todos = await Todo.find({ author: user._id })
+      .select("-__v -author")
+      .sort({ createdAt: 1 });
 
     if (!todos) {
       throw new ApiError(404, "No Todos found");
@@ -42,12 +48,13 @@ const getAllTodos = async (req, res) => {
 
 const getTodoById = async (req, res) => {
   try {
-    // const user = req.user;
+    const user = req.user;
     const { todoId } = req.params;
 
     const todo = await Todo.findOne({
       _id: todoId,
-    }).select("-__v ");
+      author: user._id,
+    }).select("-__v -author");
 
     if (!todo) {
       throw new ApiError(404, "Todo not found");
@@ -63,14 +70,14 @@ const getTodoById = async (req, res) => {
 const editTodo = async (req, res) => {
   try {
     const { todoId } = req.params;
-    // const user = req.user;
+    const user = req.user;
     const { content } = req.body;
 
     if (!content) {
       throw new ApiError(400, "Todo content is required");
     }
 
-    const todo = await Todo.findOne({ _id: todoId });
+    const todo = await Todo.findOne({ _id: todoId, author: user._id });
 
     if (!todo) {
       throw new ApiError(404, "Todo not found");
@@ -94,9 +101,9 @@ const editTodo = async (req, res) => {
 const deleteTodo = async (req, res) => {
   try {
     const { todoId } = req.params;
-    // const user = req.user;
+    const user = req.user;
 
-    const todo = await Todo.findOneAndDelete({ _id: todoId });
+    const todo = await Todo.findOneAndDelete({ _id: todoId, author: user._id });
 
     if (!todo) {
       throw new ApiError(404, "Todo not found");
@@ -112,11 +119,12 @@ const deleteTodo = async (req, res) => {
 const markTodoStatus = async (req, res) => {
   try {
     const { todoId } = req.params;
-    // const user = req.user;
+    const user = req.user;
 
     const todo = await Todo.findOne({
       _id: todoId,
-    }).select("-__v ");
+      author: user._id,
+    }).select("-__v -author");
 
     if (!todo) {
       throw new ApiError(404, "Todo not found");

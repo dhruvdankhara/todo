@@ -1,5 +1,6 @@
 import { Router } from "express";
 
+import { verifyJWT } from "../../middleware/auth.middleware.js";
 import {
   createTodo,
   deleteTodo,
@@ -7,9 +8,11 @@ import {
   getAllTodos,
   getTodoById,
   markTodoStatus,
-} from "../controller/todo.controller.js";
+} from "../../controller/todo/todo.controller.js";
 
 const router = Router();
+
+router.use(verifyJWT);
 
 router.route("/").post(createTodo).get(getAllTodos);
 
