@@ -84,7 +84,7 @@ export const authSlice = createSlice({
         setLoadingState(state, "login user...");
       })
       .addCase(loginUser.rejected, (state, action) => {
-        setLoadingState(state, action);
+        setErrorState(state, action);
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;

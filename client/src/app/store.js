@@ -8,5 +8,10 @@ export const store = configureStore({
     todos: todoReducer,
     auth: authReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) => {
+    if (import.meta.env.VITE_ENV === "development") {
+      return getDefaultMiddleware().concat(logger);
+    }
+    return getDefaultMiddleware();
+  },
 });
