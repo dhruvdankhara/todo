@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-hot-toast";
 import {
   createTodoApi,
   deleteTodoApi,
@@ -7,31 +8,34 @@ import {
   updateTodoApi,
 } from "../../api";
 
-import { toast } from "react-hot-toast";
+export const fetchAllTodos = createAsyncThunk(
+  "todo/fetchAllTodos",
+  async () => {
+    const response = await fetchAllTodosApi();
+    return response.data;
+  }
+);
 
-export const fetchAllTodos = createAsyncThunk("fetchAllTodos", async () => {
-  toast.loading("Fetching Todos...");
-  const response = await fetchAllTodosApi();
-  return response.data;
-});
+export const createTodo = createAsyncThunk(
+  "todo/createtTodo",
+  async (content) => {
+    const response = await createTodoApi(content);
+    return response.data;
+  }
+);
 
-export const createTodo = createAsyncThunk("createtTodo", async (content) => {
-  const response = await createTodoApi(content);
-  return response.data;
-});
-
-export const deleteTodo = createAsyncThunk("deleteTodo", async (id) => {
+export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (id) => {
   const response = await deleteTodoApi(id);
   return response.data;
 });
 
-export const toggleTodo = createAsyncThunk("toggleTodo", async (id) => {
+export const toggleTodo = createAsyncThunk("todo/toggleTodo", async (id) => {
   const response = await toggleCompleteApi(id);
   return response.data;
 });
 
 export const updateTodo = createAsyncThunk(
-  "updateTodo",
+  "todo/updateTodo",
   async ({ id, content }) => {
     const response = await updateTodoApi(id, content);
     return response.data;
@@ -46,15 +50,15 @@ const initialState = {
 export const todoSlice = createSlice({
   name: "todo",
   initialState,
-  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchAllTodos.pending, (state) => {
       state.isLoading = true;
+      toast.loading("Fetching Todos...");
     });
-    builder.addCase(fetchAllTodos.rejected, (state) => {
+    builder.addCase(fetchAllTodos.rejected, (state, action) => {
       state.isLoading = false;
       toast.dismiss();
-      toast.error("Failed to fetch Todos");
+      toast.error(action.payload.message);
     });
     builder.addCase(fetchAllTodos.fulfilled, (state, action) => {
       state.todos = action.payload.data;
@@ -62,18 +66,15 @@ export const todoSlice = createSlice({
       toast.dismiss();
       toast.success(action.payload.message);
     });
-    builder.addCase(createTodo.pending, (state) => {
+    builder.addCase(createTodo.pending, () => {
       toast.loading("Adding Todo...");
-      state.isLoading = true;
     });
-    builder.addCase(createTodo.rejected, (state) => {
-      state.isLoading = false;
+    builder.addCase(createTodo.rejected, (state, action) => {
       toast.dismiss();
-      toast.error("Failed to add Todo");
+      toast.error(action.payload.message);
     });
     builder.addCase(createTodo.fulfilled, (state, action) => {
       state.todos.push(action.payload.data);
-      state.isLoading = false;
       toast.dismiss();
       toast.success(action.payload.message);
     });

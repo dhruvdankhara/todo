@@ -1,11 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import { Toaster } from "react-hot-toast";
-
 import { Provider } from "react-redux";
-import { store } from "./app/store.js";
-
+import { Toaster } from "react-hot-toast";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -13,6 +9,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import "./index.css";
+import { store } from "./app/store.js";
 import Layout from "./layouts/Layout.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";

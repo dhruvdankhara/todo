@@ -4,8 +4,8 @@ import { ApiError, handleApiError } from "../../util/errorHandler.js";
 
 const createTodo = async (req, res) => {
   try {
-    const { content } = req.body;
     const user = req.user;
+    const { content } = req.body;
 
     if (!content) {
       throw new ApiError(400, "Todo content is required");
@@ -69,9 +69,9 @@ const getTodoById = async (req, res) => {
 
 const editTodo = async (req, res) => {
   try {
-    const { todoId } = req.params;
     const user = req.user;
     const { content } = req.body;
+    const { todoId } = req.params;
 
     if (!content) {
       throw new ApiError(400, "Todo content is required");
@@ -100,8 +100,8 @@ const editTodo = async (req, res) => {
 
 const deleteTodo = async (req, res) => {
   try {
-    const { todoId } = req.params;
     const user = req.user;
+    const { todoId } = req.params;
 
     const todo = await Todo.findOneAndDelete({ _id: todoId, author: user._id });
 
@@ -118,8 +118,8 @@ const deleteTodo = async (req, res) => {
 
 const markTodoStatus = async (req, res) => {
   try {
-    const { todoId } = req.params;
     const user = req.user;
+    const { todoId } = req.params;
 
     const todo = await Todo.findOne({
       _id: todoId,

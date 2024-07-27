@@ -3,13 +3,17 @@ import { TodoForm, TodoItem } from "../components";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllTodos } from "../features/todo/todoSlice";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function TodoPage() {
   const todos = useSelector((state) => state.todos.todos);
   const isLoading = useSelector((state) => state.todos.isLoading);
   const [option, setOption] = useState("all");
+  const { isLogged } = useSelector((state) => state.auth);
 
   const dispacth = useDispatch();
+  const navigate = useNavigate();
 
   const allTodo = () => {
     setOption("all");
@@ -22,8 +26,13 @@ function TodoPage() {
   };
 
   useEffect(() => {
-    dispacth(fetchAllTodos());
-  }, []);
+    if (!isLogged) {
+      toast.error("Please login to see your todos");
+      navigate("/login");
+    } else {
+      dispacth(fetchAllTodos());
+    }
+  }, [navigate, dispacth, isLogged]);
 
   return (
     <div className="min-h-screen ">
