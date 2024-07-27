@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 import { registerUserApi, loginUserApi, logoutUserApi } from "../../api";
+import { setLoadingState, setErrorState } from "./authUtils";
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -62,16 +63,10 @@ export const authSlice = createSlice({
     // register user
     builder
       .addCase(registerUser.pending, (state) => {
-        state.isLoading = true;
-        state.isLogged = false;
-        state.error = "";
-        toast.loading("registering user...");
+        setLoadingState(state, "registering user...");
       })
       .addCase(registerUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-        toast.dismiss();
-        toast.error(action.payload);
+        setErrorState(state, action);
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -86,16 +81,10 @@ export const authSlice = createSlice({
     // login user
     builder
       .addCase(loginUser.pending, (state) => {
-        state.isLoading = true;
-        state.isLogged = false;
-        state.error = "";
-        toast.loading("login user...");
+        setLoadingState(state, "login user...");
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-        toast.dismiss();
-        toast.error(action.payload);
+        setLoadingState(state, action);
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -108,15 +97,10 @@ export const authSlice = createSlice({
     // logout user
     builder
       .addCase(logoutUser.pending, (state) => {
-        state.isLoading = true;
-        state.error = "";
-        toast.loading("logout user...");
+        setLoadingState(state, "loging out user...");
       })
       .addCase(logoutUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-        toast.dismiss();
-        toast.error(action.payload);
+        setErrorState(state, action);
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.isLoading = false;
