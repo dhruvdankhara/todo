@@ -13,21 +13,24 @@ This is a project for managing and organizing your daily tasks and to-do lists. 
 
 Here are the languages, tools, and libraries used in this project:
 
-<img src="https://skillicons.dev/icons?i=mongodb" height="40" alt="mongodb logo"  />
-<img width="12" />
-<img src="https://skillicons.dev/icons?i=express" height="40" alt="express logo"  />
-<img width="12" />
+**Client:**
+
 <img src="https://skillicons.dev/icons?i=react" height="40" alt="react logo"  />
-<img width="12" />
-<img src="https://skillicons.dev/icons?i=nodejs" height="40" alt="nodejs logo"  />
-<img width="12" />
 <img src="https://skillicons.dev/icons?i=tailwind" height="40" alt="tailwindcss logo"  />
-<img width="12" />
 <img src="https://skillicons.dev/icons?i=redux" height="40" alt="redux logo"  />
-<img width="12" />
 <img src="https://skillicons.dev/icons?i=vite" height="40" alt="vite logo"  />
 
-React Router, Axios, JSON Web Token (JWT), Mongoose, Bcrypt, etc.
+React Router, Axios, etc.
+
+<br>
+
+**Server:**
+
+<img src="https://skillicons.dev/icons?i=mongodb" height="40" alt="mongodb logo"  />
+<img src="https://skillicons.dev/icons?i=express" height="40" alt="express logo"  />
+<img src="https://skillicons.dev/icons?i=nodejs" height="40" alt="nodejs logo"  />
+
+JSON Web Token (JWT), Mongoose, Bcrypt, etc.
 
 ## Installation
 
@@ -58,6 +61,49 @@ npm start
 ```
 
 Make sure you have [Node.js](https://nodejs.org) installed on your machine before proceeding with the installation.
+
+## API Reference
+
+#### Auth endpoint
+
+```http
+  POST /api/v1/user
+```
+
+| Parameter   | Type     | Description   |
+| :---------- | :------- | :------------ |
+| `/register` | `string` | Register user |
+| `/login`    | `string` | Login user    |
+| `/logout`   | `string` | Logout user   |
+
+#### Todo endpoints
+
+```http
+  GET /api/v1/todos
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `/`       | `string` | Fetch All user todo               |
+| `/{id}`   | `string` | **Required**. Id of todo to fetch |
+
+```http
+  POST /api/v1/todos
+```
+
+| Parameter      | Type     | Description                               |
+| :------------- | :------- | :---------------------------------------- |
+| `/`            | `string` | Create todo                               |
+| `/{id}`        | `string` | **Required**. Id of todo to edit          |
+| `/status/{id}` | `string` | **Required**. Id of todo to toggle status |
+
+```http
+  DELETE /api/v1/todos
+```
+
+| Parameter | Type     | Description                     |
+| :-------- | :------- | :------------------------------ |
+| `/{id}`   | `string` | **Required**. Delete todo by id |
 
 ## Usage
 
