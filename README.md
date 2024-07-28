@@ -13,7 +13,7 @@ This is a project for managing and organizing your daily tasks and to-do lists. 
 
 Here are the languages, tools, and libraries used in this project:
 
-**Client:**
+### **Client:**
 
 <div>
 <img src="https://skillicons.dev/icons?i=react" height="40" alt="react logo"  />
@@ -27,9 +27,7 @@ Here are the languages, tools, and libraries used in this project:
 
 React Router, Axios, etc.
 
-<br>
-
-**Server:**
+### **Server:**
 
 <div>
 <img src="https://skillicons.dev/icons?i=mongodb" height="40" alt="mongodb logo"  />
