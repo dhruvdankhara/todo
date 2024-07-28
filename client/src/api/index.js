@@ -6,6 +6,18 @@ const apiClient = axios.create({
   timeout: 100000,
 });
 
+const registerUserApi = async (name, email, password) => {
+  return await apiClient.post("/user/register", { name, email, password });
+};
+
+const loginUserApi = async (email, password) => {
+  return await apiClient.post("/user/login", { email, password });
+};
+
+const logoutUserApi = async () => {
+  return await apiClient.post("/user/logout");
+};
+
 const fetchAllTodosApi = async () => {
   return await apiClient.get("/todos");
 };
@@ -27,6 +39,9 @@ const toggleCompleteApi = async (id) => {
 };
 
 export {
+  registerUserApi,
+  loginUserApi,
+  logoutUserApi,
   fetchAllTodosApi,
   createTodoApi,
   deleteTodoApi,

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createTodo } from "../features/todo/todoSlice";
+import toast from "react-hot-toast";
 
 function TodoForm() {
   const [todo, setTodo] = useState("");
@@ -9,7 +10,12 @@ function TodoForm() {
 
   const add = (e) => {
     e.preventDefault();
-    if (!todo) return;
+    if (!todo) {
+      toast("Enter todo content.", {
+        icon: "ℹ️",
+      });
+      return;
+    }
     dispatch(createTodo(todo));
     setTodo("");
   };

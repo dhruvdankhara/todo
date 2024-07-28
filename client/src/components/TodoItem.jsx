@@ -8,7 +8,6 @@ function TodoItem({ todo }) {
   const [todoMsg, setTodoMsg] = useState(todo.content);
 
   const todoInputRef = useRef(null);
-
   const dispacth = useDispatch();
 
   const deleteTodos = () => {
@@ -16,8 +15,7 @@ function TodoItem({ todo }) {
   };
 
   const editTodo = () => {
-    const content = todoMsg;
-    dispacth(updateTodo({ id: todo._id, content }));
+    dispacth(updateTodo({ id: todo._id, content: todoMsg }));
     setIsTodoEditable(false);
   };
 
