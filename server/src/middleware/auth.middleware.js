@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 
-import { ApiError, handleApiError } from "../util/errorHandler.js";
+import asyncHandler from "../util/asyncHandler.js";
+import { ApiError } from "../util/ApiError.js";
 import User from "../model/auth/user.model.js";
 
 /**
@@ -11,7 +12,7 @@ import User from "../model/auth/user.model.js";
  * @returns {Promise<void>} - A Promise that resolves when the middleware is complete.
  * @throws {ApiError} - If the token is missing, invalid, or the user is not found.
  */
-export const verifyJWT = async (req, res, next) => {
+export const verifyJWT = asyncHandler(async (req, res, next) => {
   try {
     const { token } = req.cookies;
 
@@ -20,6 +21,7 @@ export const verifyJWT = async (req, res, next) => {
     }
 
     const tokenData = jwt.verify(token, process.env.JWT_SECRET);
+
     if (!tokenData) {
       throw new ApiError(401, "Unauthorized");
     }
@@ -27,6 +29,7 @@ export const verifyJWT = async (req, res, next) => {
     const user = await User.findById(tokenData._id).select(
       "-password -__v -createdAt -updatedAt"
     );
+
     if (!user) {
       throw new ApiError(401, "Unauthorized, User not found");
     }
@@ -34,6 +37,6 @@ export const verifyJWT = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    return handleApiError(error, res);
+    throw new ApiError(401, "Unauthorized request");
   }
-};
+});
