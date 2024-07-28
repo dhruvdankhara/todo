@@ -33,8 +33,8 @@ React Router, Axios, etc.
 <img src="https://skillicons.dev/icons?i=mongodb" height="40" alt="mongodb logo"  />
 <img width="7">
 <img src="https://skillicons.dev/icons?i=express" height="40" alt="express logo"  />
-<img src="https://skillicons.dev/icons?i=nodejs" height="40" alt="nodejs logo"  />
 <img width="7">
+<img src="https://skillicons.dev/icons?i=nodejs" height="40" alt="nodejs logo"  />
 </div>
 
 JSON Web Token (JWT), Mongoose, Bcrypt, etc.
