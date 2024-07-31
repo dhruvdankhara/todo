@@ -69,48 +69,91 @@ npm start
 
 Make sure you have [Node.js](https://nodejs.org) installed on your machine before proceeding with the installation.
 
-## API Reference
+# API Reference
 
-#### Auth endpoint
+## Auth Endpoints
 
-```http
-  POST /api/v1/user
-```
-
-| Parameter   | Type     | Description   |
-| :---------- | :------- | :------------ |
-| `/register` | `string` | Register user |
-| `/login`    | `string` | Login user    |
-| `/logout`   | `string` | Logout user   |
-
-#### Todo endpoints
+### Register User
 
 ```http
-  GET /api/v1/todos
+POST /api/v1/user/register
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `/`       | `string` | Fetch All user todo               |
-| `/{id}`   | `string` | **Required**. Id of todo to fetch |
+Registers a new user.
+
+### Login User
 
 ```http
-  POST /api/v1/todos
+POST /api/v1/user/login
 ```
 
-| Parameter      | Type     | Description                               |
-| :------------- | :------- | :---------------------------------------- |
-| `/`            | `string` | Create todo                               |
-| `/{id}`        | `string` | **Required**. Id of todo to edit          |
-| `/status/{id}` | `string` | **Required**. Id of todo to toggle status |
+Authenticates and logs in a user.
+
+### Get Current User
 
 ```http
-  DELETE /api/v1/todos
+GET /api/v1/user/current-user
 ```
 
-| Parameter | Type     | Description                     |
-| :-------- | :------- | :------------------------------ |
-| `/{id}`   | `string` | **Required**. Delete todo by id |
+Retrieves the currently authenticated user's details.
+
+### Logout User
+
+```http
+POST /api/v1/user/logout
+```
+
+Logs out the current user.
+
+## Todo Endpoints
+
+### Create Todo
+
+```http
+POST /api/v1/todos
+```
+
+Creates a new todo item.
+
+### Get All Todos
+
+```http
+GET /api/v1/todos
+```
+
+Fetches all todos for the authenticated user.
+
+### Get Todo by ID
+
+```http
+GET /api/v1/todos/{todoId}
+```
+
+Fetches a specific todo by ID.
+
+### Edit Todo
+
+```http
+POST /api/v1/todos/{todoId}
+```
+
+Edits a todo by ID.
+
+### Toggle Todo Status
+
+```http
+POST /api/v1/todos/status/{todoId}
+```
+
+Toggles the completion status of a todo by ID.
+
+### Delete Todo
+
+```http
+DELETE /api/v1/todos/{todoId}
+```
+
+Deletes a todo by ID.
 
 ## Usage
 
