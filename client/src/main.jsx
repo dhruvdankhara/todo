@@ -11,7 +11,7 @@ import {
 
 import "./index.css";
 import { store } from "./app/store.js";
-import Layout from "./layouts/Layout.jsx";
+import App from "./App.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage";
@@ -19,7 +19,7 @@ import TodoPage from "./pages/TodoPage.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
+    <Route path="/" element={<App />}>
       <Route path="" element={<HomePage />} />
       <Route path="todos" element={<TodoPage />} />
       <Route path="register" element={<RegisterPage />} />

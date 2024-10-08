@@ -6,8 +6,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    credentials: true, // if you need to include cookies
+    origin: process.env.CORS_ORIGIN,
+    credentials: true,
   })
 );
 
