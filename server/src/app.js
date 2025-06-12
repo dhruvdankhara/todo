@@ -21,10 +21,12 @@ app.use(cookieParser());
 
 import userRouter from "./router/auth/user.js";
 import todoRouter from "./router/todo/todo.js";
+import subtaskRouter from "./router/todo/subtask.js";
 import errorHandler from "./middleware/error.middleware.js";
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/todos", todoRouter);
+app.use("/api/v1/todos", subtaskRouter);
 
 app.use(errorHandler);
 
