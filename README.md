@@ -1,13 +1,30 @@
-# TODO
+# 🚀 Modern Todo Application
 
-This is a project for managing and organizing your daily tasks and to-do lists. It is built using the MERN stack, which includes MongoDB, Express.js, React.js, and Node.js. With this stack, you can create, edit, and delete tasks, mark tasks as completed, filter tasks based on their status and enjoy a responsive design for both mobile and desktop devices.
+A full-stack MERN todo application with a beautiful dark theme, featuring advanced functionality like file attachments, links, subtasks, and comprehensive statistics.
 
-## Features
+![Todo App Preview](https://img.shields.io/badge/Status-Live-success?style=for-the-badge)
+![Frontend](https://img.shields.io/badge/Frontend-React%20%2B%20Redux-blue?style=for-the-badge&logo=react)
+![Backend](https://img.shields.io/badge/Backend-Node.js%20%2B%20Express-green?style=for-the-badge&logo=node.js)
+![Database](https://img.shields.io/badge/Database-MongoDB-green?style=for-the-badge&logo=mongodb)
 
-- Create, edit, and delete tasks
-- Mark tasks as completed
-- Filter tasks based on their status (completed, active)
-- Responsive design for mobile and desktop devices
+## ✨ Features
+
+### 🎯 Core Functionality
+
+- **Modern Dark UI** - Beautiful, responsive dark theme with smooth animations
+- **Todo Management** - Create, read, update, delete todos with rich content
+- **Priority System** - High, Medium, Low priority levels with visual indicators
+- **Due Dates** - Set and track due dates with overdue notifications
+- **Completion Tracking** - Mark todos as complete/incomplete with progress indicators
+
+### 🔧 Advanced Features
+
+- **📎 File Attachments** - Upload and manage files (images, documents, archives)
+- **🔗 Link Management** - Add reference links with titles and descriptions
+- **📊 Statistics Dashboard** - Comprehensive progress tracking and analytics
+- **🔍 Search & Filter** - Advanced filtering by priority, status, and text search
+- **📱 Responsive Design** - Optimized for desktop, tablet, and mobile devices
+- **🎨 Multiple Layouts** - Grid and list view options
 
 ## Tech Stack
 

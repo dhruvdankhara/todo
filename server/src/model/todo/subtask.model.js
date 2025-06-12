@@ -1,31 +1,20 @@
 import { Schema, model } from "mongoose";
 
-const todoSchema = new Schema(
+const subtaskSchema = new Schema(
   {
-    author: {
+    parentTodo: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Todo",
+      required: true,
     },
     content: {
       type: String,
       required: true,
       trim: true,
     },
-    description: {
-      type: String,
-      trim: true,
-    },
     isCompleted: {
       type: Boolean,
       default: false,
-    },
-    priority: {
-      type: String,
-      enum: ["low", "medium", "high"],
-      default: "medium",
-    },
-    dueDate: {
-      type: Date,
     },
     attachments: [
       {
@@ -76,16 +65,10 @@ const todoSchema = new Schema(
         },
       },
     ],
-    subtasks: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "SubTask",
-      },
-    ],
   },
   { timestamps: true }
 );
 
-const Todo = model("Todo", todoSchema);
+const SubTask = model("SubTask", subtaskSchema);
 
-export default Todo;
+export default SubTask;

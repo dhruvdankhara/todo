@@ -35,11 +35,20 @@ export const registerUser = asyncHandler(async (req, res) => {
   if (!newUser) {
     throw new ApiError(500, "something went wrong while creating user.");
   }
-
   const token = newUser.generateAccessToken();
 
+  const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  };
+
   const response = new ApiResponse(201, newUser, "User created successfully");
-  return res.status(response.statusCode).cookie("token", token).json(response);
+  return res
+    .status(response.statusCode)
+    .cookie("token", token, cookieOptions)
+    .json(response);
 });
 
 export const loginUser = asyncHandler(async (req, res) => {
@@ -66,15 +75,24 @@ export const loginUser = asyncHandler(async (req, res) => {
   if (!isPasswordCorrect) {
     throw new ApiError(401, "Invalid password");
   }
-
   const token = user.generateAccessToken();
+
+  const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  };
 
   const response = new ApiResponse(
     200,
     { user, token },
     "user logged in successfully"
   );
-  return res.status(response.statusCode).cookie("token", token).json(response);
+  return res
+    .status(response.statusCode)
+    .cookie("token", token, cookieOptions)
+    .json(response);
 });
 
 export const getCurrentUser = asyncHandler((req, res) => {
@@ -83,7 +101,13 @@ export const getCurrentUser = asyncHandler((req, res) => {
 });
 
 export const logoutUser = asyncHandler((req, res) => {
-  res.clearCookie("token");
+  const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  };
+
+  res.clearCookie("token", cookieOptions);
   const response = new ApiResponse(200, null, "user logged out successfully.");
   return res.status(response.statusCode).json(response);
 });
