@@ -40,8 +40,13 @@ export const registerUser = asyncHandler(async (req, res) => {
   const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // "none" for cross-origin in production
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    path: "/", // Ensure cookie is available for all paths
+    ...(process.env.NODE_ENV === "production" &&
+      process.env.COOKIE_DOMAIN && {
+        domain: process.env.COOKIE_DOMAIN,
+      }),
   };
 
   const response = new ApiResponse(201, newUser, "User created successfully");
@@ -80,8 +85,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   };
 
   const response = new ApiResponse(
@@ -104,7 +108,7 @@ export const logoutUser = asyncHandler((req, res) => {
   const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   };
 
   res.clearCookie("token", cookieOptions);
