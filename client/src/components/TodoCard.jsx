@@ -10,7 +10,6 @@ import {
   MoreVertical,
   Edit3,
   Trash2,
-  Plus,
   AlertCircle,
 } from "lucide-react";
 import { Menu, Transition } from "@headlessui/react";
@@ -33,7 +32,6 @@ const TodoCard = ({
   todo,
   layout = "grid",
   onEdit,
-  onAddSubtask,
   onAddAttachment,
   onAddLink,
   onViewDetails,
@@ -89,8 +87,8 @@ const TodoCard = ({
       {/* Header */}
       <div
         className={cn(
-          "flex items-start justify-between",
-          isListLayout ? "flex-1" : "mb-4"
+          "flex  justify-between",
+          isListLayout ? "flex-1 items-center" : "mb-4 items-start"
         )}
       >
         <div
@@ -158,6 +156,32 @@ const TodoCard = ({
             )}
           </div>
         </div>
+
+        {/* List layout compact info */}
+        {isListLayout && (
+          <div className="bg-gray-800 border border-gray-700 rounded-md p-2 flex items-center gap-2">
+            <div className="md:flex-row flex items-end flex-col md:items-center gap-3 text-xs text-gray-500">
+              {/* Subtasks count */}
+              {totalSubtasks > 0 && (
+                <span className="flex items-center gap-1">
+                  <Circle className="w-3 h-3" />
+                  {completedSubtasks}/{totalSubtasks}
+                </span>
+              )}
+
+              {/* Links count */}
+              {todo.links && todo.links.length > 0 && (
+                <span className="flex items-center gap-1">
+                  <LinkIcon className="w-3 h-3" />
+                  {todo.links.length}
+                </span>
+              )}
+
+              <span>Created {format(new Date(todo.createdAt), "MMM d")}</span>
+            </div>
+          </div>
+        )}
+
         {/* Actions Menu */}
         <Menu as="div" className="relative">
           <Menu.Button className="p-1 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors">
@@ -184,20 +208,6 @@ const TodoCard = ({
                     >
                       <Edit3 className="w-4 h-4 mr-3" />
                       Edit Todo
-                    </button>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      onClick={() => onAddSubtask(todo)}
-                      className={cn(
-                        "flex items-center px-4 py-2 text-sm w-full text-left",
-                        active ? "bg-gray-700 text-white" : "text-gray-300"
-                      )}
-                    >
-                      <Plus className="w-4 h-4 mr-3" />
-                      Add Subtask
                     </button>
                   )}
                 </Menu.Item>
@@ -387,36 +397,6 @@ const TodoCard = ({
           </div>
         </>
       )}
-      {/* List layout compact info */}
-      {isListLayout && (
-        <div className="flex items-center gap-3 text-xs text-gray-500">
-          {/* Subtasks indicator */}
-          {totalSubtasks > 0 && (
-            <span className="flex items-center gap-1">
-              <Circle className="w-3 h-3" />
-              {completedSubtasks}/{totalSubtasks}
-            </span>
-          )}
-
-          {/* Attachments indicator */}
-          {todo.attachments && todo.attachments.length > 0 && (
-            <span className="flex items-center gap-1">
-              <Paperclip className="w-3 h-3" />
-              {todo.attachments.length}
-            </span>
-          )}
-
-          {/* Links indicator */}
-          {todo.links && todo.links.length > 0 && (
-            <span className="flex items-center gap-1">
-              <LinkIcon className="w-3 h-3" />
-              {todo.links.length}
-            </span>
-          )}
-
-          <span>Created {format(new Date(todo.createdAt), "MMM d")}</span>
-        </div>
-      )}
     </div>
   );
 };
@@ -456,7 +436,6 @@ TodoCard.propTypes = {
   }).isRequired,
   layout: PropTypes.oneOf(["grid", "list"]),
   onEdit: PropTypes.func.isRequired,
-  onAddSubtask: PropTypes.func.isRequired,
   onAddAttachment: PropTypes.func.isRequired,
   onAddLink: PropTypes.func.isRequired,
   onViewDetails: PropTypes.func,

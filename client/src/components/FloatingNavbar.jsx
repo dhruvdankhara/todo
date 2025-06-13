@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 import { Plus, BarChart3, List, LogOut, User, Menu, X } from "lucide-react";
 import { logout } from "../store/authSlice";
 import { cn } from "../utils/cn";
@@ -215,6 +216,14 @@ const FloatingNavbar = ({
       </nav>
     </>
   );
+};
+
+FloatingNavbar.propTypes = {
+  view: PropTypes.string.isRequired,
+  setView: PropTypes.func.isRequired,
+  onCreateTodo: PropTypes.func.isRequired,
+  showMobileMenu: PropTypes.bool.isRequired,
+  setShowMobileMenu: PropTypes.func.isRequired,
 };
 
 export default FloatingNavbar;
