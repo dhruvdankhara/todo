@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import {
   Plus,
   Search,
   Filter,
-  BarChart3,
-  List,
   Grid,
+  List,
   SortAsc,
   SortDesc,
-  LogOut,
-  User,
 } from "lucide-react";
 import { fetchTodos } from "./store/todosSlice";
-import { logout } from "./store/authSlice";
 import { cn } from "./utils/cn";
 
 // Components
@@ -24,14 +19,12 @@ import ModernTodoDetailModal from "./components/ModernTodoDetailModal";
 import FileUploadModal from "./components/FileUploadModal";
 import LinkModal from "./components/LinkModal";
 import StatsPanel from "./components/StatsPanel";
+import FloatingNavbar from "./components/FloatingNavbar";
 
 const TodoApp = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { todos, loading, error } = useSelector((state) => state.todos);
-  const { user } = useSelector((state) => state.auth);
-
-  // UI Statte
+  // UI State
   const [view, setView] = useState("todos");
   const [layout, setLayout] = useState("grid");
   const [searchTerm, setSearchTerm] = useState("");
@@ -39,6 +32,8 @@ const TodoApp = () => {
   const [filterStatus, setFilterStatus] = useState("all");
   const [sortBy, setSortBy] = useState("created");
   const [sortOrder, setSortOrder] = useState("desc");
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
   // Modal States
   const [showTodoModal, setShowTodoModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
@@ -136,11 +131,6 @@ const TodoApp = () => {
     setShowDetailModal(true);
   };
 
-  const handleAddSubtask = () => {
-    // For now, just show a placeholder - subtask functionality can be added later
-    alert("Subtask functionality coming soon!");
-  };
-
   const handleAddAttachment = (todo) => {
     setSelectedTodo(todo);
     setShowFileModal(true);
@@ -154,262 +144,216 @@ const TodoApp = () => {
     setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
   };
 
-  const handleLogout = async () => {
-    try {
-      await dispatch(logout()).unwrap();
-      navigate("/login");
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gray-900">
-      {/* Header */}
-      <header className="bg-gray-800 border-b border-gray-700 sticky top-0 z-40">
+      {/* Floating Navbar */}
+      <FloatingNavbar
+        view={view}
+        setView={setView}
+        onCreateTodo={handleCreateTodo}
+        showMobileMenu={showMobileMenu}
+        setShowMobileMenu={setShowMobileMenu}
+      />
+      {/* Main Content with top padding for floating navbar */}
+      <main className="pt-20 sm:pt-24 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold text-white">TodoApp</h1>
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => setView("todos")}
-                  className={cn(
-                    "px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
-                    view === "todos"
-                      ? "bg-blue-600 text-white"
-                      : "text-gray-300 hover:text-white hover:bg-gray-700"
-                  )}
-                >
-                  <List className="w-4 h-4 inline mr-1" />
-                  Todos
-                </button>
-                <button
-                  onClick={() => setView("stats")}
-                  className={cn(
-                    "px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
-                    view === "stats"
-                      ? "bg-blue-600 text-white"
-                      : "text-gray-300 hover:text-white hover:bg-gray-700"
-                  )}
-                >
-                  <BarChart3 className="w-4 h-4 inline mr-1" />
-                  Stats
-                </button>
-              </div>{" "}
-            </div>
-
-            <div className="flex items-center space-x-4">
-              {view === "todos" && (
-                <button
-                  onClick={handleCreateTodo}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <Plus className="w-4 h-4 inline mr-2" />
-                  New Todo
-                </button>
-              )}
-
-              {/* User Info & Logout */}
-              <div className="flex items-center space-x-3">
-                <div className="flex items-center space-x-2 text-gray-300">
-                  <User className="w-5 h-5" />
-                  <span className="text-sm font-medium">
-                    {user?.name || "User"}
-                  </span>
-                </div>
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center space-x-2 text-gray-300 hover:text-white px-3 py-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800"
-                  title="Logout"
-                >
-                  <LogOut className="w-4 h-4" />
-                  <span className="text-sm">Logout</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {view === "stats" ? (
-          <StatsPanel />
-        ) : (
-          <>
-            {/* Filters and Search */}
-            <div className="mb-8 space-y-4">
-              {/* Search */}
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Search todos..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-
-              {/* Filters and Layout */}
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div className="flex items-center space-x-4">
-                  {/* Priority Filter */}
-                  <select
-                    value={filterPriority}
-                    onChange={(e) => setFilterPriority(e.target.value)}
-                    className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="all">All Priorities</option>
-                    <option value="high">High Priority</option>
-                    <option value="medium">Medium Priority</option>
-                    <option value="low">Low Priority</option>
-                  </select>
-
-                  {/* Status Filter */}
-                  <select
-                    value={filterStatus}
-                    onChange={(e) => setFilterStatus(e.target.value)}
-                    className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="all">All Todos</option>
-                    <option value="pending">Pending</option>
-                    <option value="completed">Completed</option>
-                  </select>
-
-                  {/* Sort */}
-                  <div className="flex items-center space-x-2">
+          {view === "stats" ? (
+            <StatsPanel />
+          ) : (
+            <>
+              {/* Filters and Search */}
+              <div className="mb-6 sm:mb-8 space-y-4">
+                {/* Search */}
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="text"
+                    placeholder="Search todos..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 sm:py-4 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  />
+                </div>{" "}
+                {/* Filters and Layout Controls */}
+                <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
+                  {/* Filter Controls */}
+                  <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+                    {/* Priority Filter */}
                     <select
-                      value={sortBy}
-                      onChange={(e) => setSortBy(e.target.value)}
-                      className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={filterPriority}
+                      onChange={(e) => setFilterPriority(e.target.value)}
+                      className="bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
                     >
-                      <option value="created">Created Date</option>
-                      <option value="updated">Updated Date</option>
-                      <option value="priority">Priority</option>
-                      <option value="title">Title</option>
-                      <option value="dueDate">Due Date</option>
+                      <option value="all">All Priorities</option>
+                      <option value="high">High Priority</option>
+                      <option value="medium">Medium Priority</option>
+                      <option value="low">Low Priority</option>
                     </select>
-                    <button
-                      onClick={toggleSortOrder}
-                      className="p-2 bg-gray-800 border border-gray-700 rounded-lg text-gray-400 hover:text-white transition-colors"
+
+                    {/* Status Filter */}
+                    <select
+                      value={filterStatus}
+                      onChange={(e) => setFilterStatus(e.target.value)}
+                      className="bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
                     >
-                      {sortOrder === "asc" ? (
-                        <SortAsc className="w-4 h-4" />
-                      ) : (
-                        <SortDesc className="w-4 h-4" />
+                      <option value="all">All Todos</option>
+                      <option value="pending">Pending</option>
+                      <option value="completed">Completed</option>
+                    </select>
+
+                    {/* Sort Controls */}
+                    <div className="flex items-center space-x-2">
+                      <select
+                        value={sortBy}
+                        onChange={(e) => setSortBy(e.target.value)}
+                        className="bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                      >
+                        <option value="created">Created Date</option>
+                        <option value="updated">Updated Date</option>
+                        <option value="priority">Priority</option>
+                        <option value="title">Title</option>
+                        <option value="dueDate">Due Date</option>
+                      </select>
+                      <button
+                        onClick={toggleSortOrder}
+                        className="p-2.5 bg-gray-800 border border-gray-700 rounded-xl text-gray-400 hover:text-white transition-all duration-200 hover:bg-gray-700"
+                        title={`Sort ${
+                          sortOrder === "asc" ? "Ascending" : "Descending"
+                        }`}
+                      >
+                        {sortOrder === "asc" ? (
+                          <SortAsc className="w-4 h-4" />
+                        ) : (
+                          <SortDesc className="w-4 h-4" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Layout Toggle */}
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm text-gray-400 hidden sm:inline">
+                      View:
+                    </span>
+                    <button
+                      onClick={() => setLayout("grid")}
+                      className={cn(
+                        "p-2.5 rounded-xl transition-all duration-200",
+                        layout === "grid"
+                          ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25"
+                          : "bg-gray-800 border border-gray-700 text-gray-400 hover:text-white hover:bg-gray-700"
                       )}
+                      title="Grid View"
+                    >
+                      <Grid className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => setLayout("list")}
+                      className={cn(
+                        "p-2.5 rounded-xl transition-all duration-200",
+                        layout === "list"
+                          ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25"
+                          : "bg-gray-800 border border-gray-700 text-gray-400 hover:text-white hover:bg-gray-700"
+                      )}
+                      title="List View"
+                    >
+                      <List className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
+              </div>
 
-                {/* Layout Toggle */}
-                <div className="flex items-center space-x-2">
-                  <button
-                    onClick={() => setLayout("grid")}
-                    className={cn(
-                      "p-2 rounded-lg transition-colors",
-                      layout === "grid"
-                        ? "bg-blue-600 text-white"
-                        : "bg-gray-800 border border-gray-700 text-gray-400 hover:text-white"
-                    )}
-                  >
-                    <Grid className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => setLayout("list")}
-                    className={cn(
-                      "p-2 rounded-lg transition-colors",
-                      layout === "list"
-                        ? "bg-blue-600 text-white"
-                        : "bg-gray-800 border border-gray-700 text-gray-400 hover:text-white"
-                    )}
-                  >
-                    <List className="w-4 h-4" />
-                  </button>
+              {/* Loading State */}
+              {loading && (
+                <div className="flex items-center justify-center py-16 sm:py-20">
+                  <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-500 border-t-transparent"></div>
+                  <span className="ml-3 text-gray-400">Loading todos...</span>
                 </div>
-              </div>
-            </div>
+              )}
 
-            {/* Loading State */}
-            {loading && (
-              <div className="flex items-center justify-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-500 border-t-transparent"></div>
-                <span className="ml-3 text-gray-400">Loading todos...</span>
-              </div>
-            )}
+              {/* Error State */}
+              {error && (
+                <div className="bg-red-900/20 border border-red-800 rounded-xl p-4 mb-6">
+                  <p className="text-red-400 text-center">{error}</p>
+                </div>
+              )}
 
-            {/* Error State */}
-            {error && (
-              <div className="bg-red-900/20 border border-red-800 rounded-lg p-4 mb-6">
-                <p className="text-red-400">{error}</p>
-              </div>
-            )}
-
-            {/* Todos Grid/List */}
-            {!loading && !error && (
-              <>
-                {filteredAndSortedTodos.length === 0 ? (
-                  <div className="text-center py-12">
-                    <div className="text-gray-400 mb-4">
-                      {searchTerm ||
-                      filterPriority !== "all" ||
-                      filterStatus !== "all" ? (
-                        <div>
-                          <Filter className="w-12 h-12 mx-auto mb-4" />
-                          <p className="text-lg">No todos match your filters</p>
-                          <p className="text-sm">
-                            Try adjusting your search or filters
-                          </p>
-                        </div>
-                      ) : (
-                        <div>
-                          <Plus className="w-12 h-12 mx-auto mb-4" />
-                          <p className="text-lg">No todos yet</p>
-                          <p className="text-sm">
-                            Create your first todo to get started
-                          </p>
-                        </div>
-                      )}
+              {/* Todos Content */}
+              {!loading && !error && (
+                <>
+                  {filteredAndSortedTodos.length === 0 ? (
+                    <div className="text-center py-16 sm:py-20">
+                      <div className="text-gray-400 mb-6">
+                        {searchTerm ||
+                        filterPriority !== "all" ||
+                        filterStatus !== "all" ? (
+                          <div className="space-y-4">
+                            <div className="w-16 h-16 mx-auto bg-gray-800 rounded-full flex items-center justify-center">
+                              <Filter className="w-8 h-8" />
+                            </div>
+                            <div>
+                              <p className="text-lg sm:text-xl font-medium">
+                                No todos match your filters
+                              </p>
+                              <p className="text-sm sm:text-base text-gray-500 mt-2">
+                                Try adjusting your search or filters
+                              </p>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="space-y-4">
+                            <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                              <Plus className="w-8 h-8 text-white" />
+                            </div>
+                            <div>
+                              <p className="text-lg sm:text-xl font-medium">
+                                No todos yet
+                              </p>
+                              <p className="text-sm sm:text-base text-gray-500 mt-2">
+                                Create your first todo to get started
+                              </p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      {!searchTerm &&
+                        filterPriority === "all" &&
+                        filterStatus === "all" && (
+                          <button
+                            onClick={handleCreateTodo}
+                            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-blue-600/25 hover:shadow-blue-600/40"
+                          >
+                            <Plus className="w-4 h-4 inline mr-2" />
+                            Create First Todo
+                          </button>
+                        )}
                     </div>
-                    {!searchTerm &&
-                      filterPriority === "all" &&
-                      filterStatus === "all" && (
-                        <button
-                          onClick={handleCreateTodo}
-                          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
-                        >
-                          <Plus className="w-4 h-4 inline mr-2" />
-                          Create First Todo
-                        </button>
+                  ) : (
+                    <div
+                      className={cn(
+                        layout === "grid"
+                          ? "grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6"
+                          : "space-y-3 sm:space-y-4"
                       )}
-                  </div>
-                ) : (
-                  <div
-                    className={cn(
-                      layout === "grid"
-                        ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                        : "space-y-4"
-                    )}
-                  >
-                    {" "}
-                    {filteredAndSortedTodos.map((todo) => (
-                      <TodoCard
-                        key={todo._id}
-                        todo={todo}
-                        onEdit={handleEditTodo}
-                        onViewDetails={handleViewDetails}
-                        onAddSubtask={handleAddSubtask}
-                        onAddAttachment={handleAddAttachment}
-                        onAddLink={handleAddLink}
-                      />
-                    ))}
-                  </div>
-                )}
-              </>
-            )}
-          </>
-        )}
+                    >
+                      {filteredAndSortedTodos.map((todo) => (
+                        <TodoCard
+                          key={todo._id}
+                          todo={todo}
+                          layout={layout}
+                          onEdit={handleEditTodo}
+                          onViewDetails={handleViewDetails}
+                          onAddAttachment={handleAddAttachment}
+                          onAddLink={handleAddLink}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </div>
       </main>
       {/* Modals */}
       <TodoModal
