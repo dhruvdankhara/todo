@@ -17,24 +17,24 @@ const SearchAndFilters = ({
   setLayout,
 }) => {
   return (
-    <div className="mb-6 sm:mb-8 space-y-4">
+    <div className="mb-6 space-y-4 sm:mb-8">
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+        <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
         <input
           type="text"
           placeholder="Search todos..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full pl-10 pr-4 py-3 sm:py-4 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+          className="w-full rounded-xl border border-gray-700 bg-gray-800 py-3 pl-10 pr-4 text-white placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 sm:py-4"
         />
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
-        <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <select
             value={filterPriority}
             onChange={(e) => setFilterPriority(e.target.value)}
-            className="bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+            className="rounded-xl border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">All Priorities</option>
             <option value="high">High Priority</option>
@@ -45,7 +45,7 @@ const SearchAndFilters = ({
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+            className="rounded-xl border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">All Todos</option>
             <option value="pending">Pending</option>
@@ -56,7 +56,7 @@ const SearchAndFilters = ({
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="rounded-xl border border-gray-700 bg-gray-800 px-4 py-2.5 text-sm text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="created">Created Date</option>
               <option value="updated">Updated Date</option>
@@ -66,43 +66,43 @@ const SearchAndFilters = ({
             </select>
             <button
               onClick={toggleSortOrder}
-              className="p-2.5 bg-gray-800 border border-gray-700 rounded-xl text-gray-400 hover:text-white transition-all duration-200 hover:bg-gray-700"
+              className="rounded-xl border border-gray-700 bg-gray-800 p-2.5 text-gray-400 transition-all duration-200 hover:bg-gray-700 hover:text-white"
               title={`Sort ${sortOrder === "asc" ? "Ascending" : "Descending"}`}
             >
               {sortOrder === "asc" ? (
-                <SortAsc className="w-4 h-4" />
+                <SortAsc className="h-4 w-4" />
               ) : (
-                <SortDesc className="w-4 h-4" />
+                <SortDesc className="h-4 w-4" />
               )}
             </button>
           </div>
         </div>
 
         <div className="flex items-center space-x-2">
-          <span className="text-sm text-gray-400 hidden sm:inline">View:</span>
+          <span className="hidden text-sm text-gray-400 sm:inline">View:</span>
           <button
             onClick={() => setLayout("grid")}
             className={cn(
-              "p-2.5 rounded-xl transition-all duration-200",
+              "rounded-xl p-2.5 transition-all duration-200",
               layout === "grid"
                 ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25"
-                : "bg-gray-800 border border-gray-700 text-gray-400 hover:text-white hover:bg-gray-700"
+                : "border border-gray-700 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white"
             )}
             title="Grid View"
           >
-            <Grid className="w-4 h-4" />
+            <Grid className="h-4 w-4" />
           </button>
           <button
             onClick={() => setLayout("list")}
             className={cn(
-              "p-2.5 rounded-xl transition-all duration-200",
+              "rounded-xl p-2.5 transition-all duration-200",
               layout === "list"
                 ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25"
-                : "bg-gray-800 border border-gray-700 text-gray-400 hover:text-white hover:bg-gray-700"
+                : "border border-gray-700 bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white"
             )}
             title="List View"
           >
-            <List className="w-4 h-4" />
+            <List className="h-4 w-4" />
           </button>
         </div>
       </div>

@@ -18,10 +18,10 @@ const ProtectedRoute = ({ children }) => {
 
   if (loading || !hasAttemptedAuth) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-gray-900">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="text-gray-400 mt-4">Loading...</p>
+          <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-blue-500"></div>
+          <p className="mt-4 text-gray-400">Loading...</p>
         </div>
       </div>
     );

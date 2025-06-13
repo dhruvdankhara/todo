@@ -98,10 +98,10 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen flex-col justify-center bg-gray-900 py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="bg-blue-600 p-3 rounded-full">
+          <div className="rounded-full bg-blue-600 p-3">
             <UserPlus className="h-8 w-8 text-white" />
           </div>
         </div>
@@ -112,7 +112,7 @@ const Register = () => {
           Or{" "}
           <Link
             to="/login"
-            className="font-medium text-blue-400 hover:text-blue-300 transition-colors"
+            className="font-medium text-blue-400 transition-colors hover:text-blue-300"
           >
             sign in to your existing account
           </Link>
@@ -120,13 +120,13 @@ const Register = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-gray-800 py-8 px-4 shadow-xl sm:rounded-lg sm:px-10 border border-gray-700">
+        <div className="border border-gray-700 bg-gray-800 px-4 py-8 shadow-xl sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Global Error */}
             {error && (
-              <div className="bg-red-900/20 border border-red-700 rounded-md p-3 flex items-start space-x-2">
-                <AlertCircle className="h-5 w-5 text-red-400 mt-0.5 flex-shrink-0" />
-                <span className="text-red-400 text-sm">{error}</span>
+              <div className="flex items-start space-x-2 rounded-md border border-red-700 bg-red-900/20 p-3">
+                <AlertCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-400" />
+                <span className="text-sm text-red-400">{error}</span>
               </div>
             )}
 
@@ -138,8 +138,8 @@ const Register = () => {
               >
                 Full Name
               </label>
-              <div className="mt-1 relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <div className="relative mt-1">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                   <User className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
@@ -151,7 +151,7 @@ const Register = () => {
                   value={formData.name}
                   onChange={handleChange}
                   className={cn(
-                    "block w-full pl-10 pr-3 py-2 border rounded-md text-white bg-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                    "block w-full rounded-md border bg-gray-700 py-2 pl-10 pr-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500",
                     formErrors.name
                       ? "border-red-500 focus:ring-red-500"
                       : "border-gray-600"
@@ -172,8 +172,8 @@ const Register = () => {
               >
                 Email address
               </label>
-              <div className="mt-1 relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <div className="relative mt-1">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                   <Mail className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
@@ -185,7 +185,7 @@ const Register = () => {
                   value={formData.email}
                   onChange={handleChange}
                   className={cn(
-                    "block w-full pl-10 pr-3 py-2 border rounded-md text-white bg-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                    "block w-full rounded-md border bg-gray-700 py-2 pl-10 pr-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500",
                     formErrors.email
                       ? "border-red-500 focus:ring-red-500"
                       : "border-gray-600"
@@ -206,8 +206,8 @@ const Register = () => {
               >
                 Password
               </label>
-              <div className="mt-1 relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <div className="relative mt-1">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                   <Lock className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
@@ -219,7 +219,7 @@ const Register = () => {
                   value={formData.password}
                   onChange={handleChange}
                   className={cn(
-                    "block w-full pl-10 pr-10 py-2 border rounded-md text-white bg-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                    "block w-full rounded-md border bg-gray-700 py-2 pl-10 pr-10 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500",
                     formErrors.password
                       ? "border-red-500 focus:ring-red-500"
                       : "border-gray-600"
@@ -228,7 +228,7 @@ const Register = () => {
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  className="absolute inset-y-0 right-0 flex items-center pr-3"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
@@ -253,8 +253,8 @@ const Register = () => {
               >
                 Confirm Password
               </label>
-              <div className="mt-1 relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <div className="relative mt-1">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                   <Lock className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
@@ -266,7 +266,7 @@ const Register = () => {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   className={cn(
-                    "block w-full pl-10 pr-10 py-2 border rounded-md text-white bg-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                    "block w-full rounded-md border bg-gray-700 py-2 pl-10 pr-10 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500",
                     formErrors.confirmPassword
                       ? "border-red-500 focus:ring-red-500"
                       : "border-gray-600"
@@ -275,7 +275,7 @@ const Register = () => {
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  className="absolute inset-y-0 right-0 flex items-center pr-3"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
                   {showConfirmPassword ? (
@@ -298,16 +298,16 @@ const Register = () => {
                 type="submit"
                 disabled={loading}
                 className={cn(
-                  "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-gray-800",
+                  "flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800",
                   loading
-                    ? "bg-gray-600 cursor-not-allowed"
+                    ? "cursor-not-allowed bg-gray-600"
                     : "bg-blue-600 hover:bg-blue-700"
                 )}
               >
                 {loading ? (
                   <>
                     <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      className="-ml-1 mr-3 h-5 w-5 animate-spin text-white"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -330,7 +330,7 @@ const Register = () => {
                   </>
                 ) : (
                   <>
-                    <UserPlus className="h-5 w-5 mr-2" />
+                    <UserPlus className="mr-2 h-5 w-5" />
                     Create Account
                   </>
                 )}

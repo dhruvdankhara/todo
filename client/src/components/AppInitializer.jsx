@@ -27,11 +27,11 @@ const AppInitializer = ({ children }) => {
 
   if (!hasAttemptedAuth && loading && !isAuthPage) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-gray-900">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-500 border-t-transparent mx-auto"></div>
-          <p className="text-gray-400 mt-6 text-lg">Initializing...</p>
-          <p className="text-gray-500 mt-2 text-sm">
+          <div className="mx-auto h-16 w-16 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+          <p className="mt-6 text-lg text-gray-400">Initializing...</p>
+          <p className="mt-2 text-sm text-gray-500">
             Checking authentication status
           </p>
         </div>

@@ -79,35 +79,35 @@ const TodoCard = ({
   return (
     <div
       className={cn(
-        "group relative bg-gray-800 border border-gray-700 rounded-xl transition-all duration-200 hover:border-gray-600 hover:bg-gray-800/80",
+        "group relative rounded-xl border border-gray-700 bg-gray-800 transition-all duration-200 hover:border-gray-600 hover:bg-gray-800/80",
         todo.isCompleted && "opacity-75",
-        isListLayout ? "p-4 flex items-center gap-4" : "p-6"
+        isListLayout ? "flex items-center gap-4 p-4" : "p-6"
       )}
     >
       {/* Header */}
       <div
         className={cn(
-          "flex  justify-between",
+          "flex justify-between",
           isListLayout ? "flex-1 items-center" : "mb-4 items-start"
         )}
       >
         <div
           className={cn(
-            "flex items-start space-x-3 flex-1",
+            "flex flex-1 items-start space-x-3",
             isListLayout && "min-w-0"
           )}
         >
           <button
             onClick={handleToggleStatus}
-            className="mt-1 text-gray-400 hover:text-blue-400 transition-colors"
+            className="mt-1 text-gray-400 transition-colors hover:text-blue-400"
           >
             {todo.isCompleted ? (
-              <CheckCircle2 className="w-5 h-5 text-green-400" />
+              <CheckCircle2 className="h-5 w-5 text-green-400" />
             ) : (
-              <Circle className="w-5 h-5" />
+              <Circle className="h-5 w-5" />
             )}
           </button>{" "}
-          <div className="flex-1 min-w-0">
+          <div className="min-w-0 flex-1">
             <div
               className={cn(
                 "flex items-center gap-2",
@@ -116,8 +116,8 @@ const TodoCard = ({
             >
               <h3
                 className={cn(
-                  "font-semibold text-white cursor-pointer hover:text-blue-400 transition-colors",
-                  todo.isCompleted && "line-through text-gray-400",
+                  "cursor-pointer font-semibold text-white transition-colors hover:text-blue-400",
+                  todo.isCompleted && "text-gray-400 line-through",
                   isListLayout ? "text-base" : "text-lg"
                 )}
                 onClick={handleViewDetails}
@@ -129,7 +129,7 @@ const TodoCard = ({
               {todo.priority && (
                 <span
                   className={cn(
-                    "px-2 py-1 rounded-md text-xs font-medium border",
+                    "rounded-md border px-2 py-1 text-xs font-medium",
                     priorityColors[todo.priority]
                   )}
                 >
@@ -140,17 +140,17 @@ const TodoCard = ({
               {/* Due date in list layout */}
               {todo.dueDate && isListLayout && (
                 <div className="flex items-center text-sm text-gray-400">
-                  <Calendar className="w-3 h-3 mr-1" />
+                  <Calendar className="mr-1 h-3 w-3" />
                   <span>{format(new Date(todo.dueDate), "MMM d")}</span>
                   {new Date(todo.dueDate) < new Date() && !todo.isCompleted && (
-                    <AlertCircle className="w-3 h-3 ml-1 text-red-400" />
+                    <AlertCircle className="ml-1 h-3 w-3 text-red-400" />
                   )}
                 </div>
               )}
             </div>
 
             {todo.description && !isListLayout && (
-              <p className="text-gray-400 text-sm mt-1 line-clamp-2">
+              <p className="mt-1 line-clamp-2 text-sm text-gray-400">
                 {todo.description}
               </p>
             )}
@@ -159,12 +159,12 @@ const TodoCard = ({
 
         {/* List layout compact info */}
         {isListLayout && (
-          <div className="bg-gray-800 border border-gray-700 rounded-md p-2 flex items-center gap-2">
-            <div className="md:flex-row flex items-end flex-col md:items-center gap-3 text-xs text-gray-500">
+          <div className="flex items-center gap-2 rounded-md border border-gray-700 bg-gray-800 p-2">
+            <div className="flex flex-col items-end gap-3 text-xs text-gray-500 md:flex-row md:items-center">
               {/* Subtasks count */}
               {totalSubtasks > 0 && (
                 <span className="flex items-center gap-1">
-                  <Circle className="w-3 h-3" />
+                  <Circle className="h-3 w-3" />
                   {completedSubtasks}/{totalSubtasks}
                 </span>
               )}
@@ -172,7 +172,7 @@ const TodoCard = ({
               {/* Links count */}
               {todo.links && todo.links.length > 0 && (
                 <span className="flex items-center gap-1">
-                  <LinkIcon className="w-3 h-3" />
+                  <LinkIcon className="h-3 w-3" />
                   {todo.links.length}
                 </span>
               )}
@@ -184,8 +184,8 @@ const TodoCard = ({
 
         {/* Actions Menu */}
         <Menu as="div" className="relative">
-          <Menu.Button className="p-1 text-gray-400 hover:text-white hover:bg-gray-700 rounded-md transition-colors">
-            <MoreVertical className="w-4 h-4" />
+          <Menu.Button className="rounded-md p-1 text-gray-400 transition-colors hover:bg-gray-700 hover:text-white">
+            <MoreVertical className="h-4 w-4" />
           </Menu.Button>
           <Transition
             enter="transition duration-100 ease-out"
@@ -195,18 +195,18 @@ const TodoCard = ({
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           >
-            <Menu.Items className="absolute right-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-md shadow-lg z-10">
+            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 rounded-md border border-gray-700 bg-gray-800 shadow-lg">
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (
                     <button
                       onClick={handleEdit}
                       className={cn(
-                        "flex items-center px-4 py-2 text-sm w-full text-left",
+                        "flex w-full items-center px-4 py-2 text-left text-sm",
                         active ? "bg-gray-700 text-white" : "text-gray-300"
                       )}
                     >
-                      <Edit3 className="w-4 h-4 mr-3" />
+                      <Edit3 className="mr-3 h-4 w-4" />
                       Edit Todo
                     </button>
                   )}
@@ -216,11 +216,11 @@ const TodoCard = ({
                     <button
                       onClick={() => onAddAttachment(todo)}
                       className={cn(
-                        "flex items-center px-4 py-2 text-sm w-full text-left",
+                        "flex w-full items-center px-4 py-2 text-left text-sm",
                         active ? "bg-gray-700 text-white" : "text-gray-300"
                       )}
                     >
-                      <Paperclip className="w-4 h-4 mr-3" />
+                      <Paperclip className="mr-3 h-4 w-4" />
                       Add Attachment
                     </button>
                   )}
@@ -230,11 +230,11 @@ const TodoCard = ({
                     <button
                       onClick={() => onAddLink(todo)}
                       className={cn(
-                        "flex items-center px-4 py-2 text-sm w-full text-left",
+                        "flex w-full items-center px-4 py-2 text-left text-sm",
                         active ? "bg-gray-700 text-white" : "text-gray-300"
                       )}
                     >
-                      <LinkIcon className="w-4 h-4 mr-3" />
+                      <LinkIcon className="mr-3 h-4 w-4" />
                       Add Link
                     </button>
                   )}
@@ -244,11 +244,11 @@ const TodoCard = ({
                     <button
                       onClick={handleDelete}
                       className={cn(
-                        "flex items-center px-4 py-2 text-sm w-full text-left",
+                        "flex w-full items-center px-4 py-2 text-left text-sm",
                         active ? "bg-red-600 text-white" : "text-red-400"
                       )}
                     >
-                      <Trash2 className="w-4 h-4 mr-3" />
+                      <Trash2 className="mr-3 h-4 w-4" />
                       Delete
                     </button>
                   )}
@@ -263,11 +263,11 @@ const TodoCard = ({
         <>
           {/* Due Date */}
           {todo.dueDate && (
-            <div className="flex items-center text-sm text-gray-400 mb-3">
-              <Calendar className="w-4 h-4 mr-2" />
+            <div className="mb-3 flex items-center text-sm text-gray-400">
+              <Calendar className="mr-2 h-4 w-4" />
               <span>Due: {format(new Date(todo.dueDate), "PPP")}</span>
               {new Date(todo.dueDate) < new Date() && !todo.isCompleted && (
-                <AlertCircle className="w-4 h-4 ml-2 text-red-400" />
+                <AlertCircle className="ml-2 h-4 w-4 text-red-400" />
               )}
             </div>
           )}
@@ -275,15 +275,15 @@ const TodoCard = ({
           {/* Subtasks Progress */}
           {totalSubtasks > 0 && (
             <div className="mb-4">
-              <div className="flex items-center justify-between text-sm text-gray-400 mb-2">
+              <div className="mb-2 flex items-center justify-between text-sm text-gray-400">
                 <span>Subtasks</span>
                 <span>
                   {completedSubtasks}/{totalSubtasks}
                 </span>
               </div>
-              <div className="w-full bg-gray-700 rounded-full h-2">
+              <div className="h-2 w-full rounded-full bg-gray-700">
                 <div
-                  className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+                  className="h-2 rounded-full bg-blue-500 transition-all duration-300"
                   style={{
                     width: `${
                       totalSubtasks > 0
@@ -301,24 +301,24 @@ const TodoCard = ({
             <div className="mb-4">
               <button
                 onClick={() => setShowAttachments(!showAttachments)}
-                className="flex items-center text-sm text-gray-400 hover:text-white transition-colors mb-2"
+                className="mb-2 flex items-center text-sm text-gray-400 transition-colors hover:text-white"
               >
-                <Paperclip className="w-4 h-4 mr-2" />
+                <Paperclip className="mr-2 h-4 w-4" />
                 <span>{todo.attachments.length} Attachment(s)</span>
               </button>
               {showAttachments && (
-                <div className="space-y-2 ml-6">
+                <div className="ml-6 space-y-2">
                   {todo.attachments.map((attachment) => (
                     <div
                       key={attachment._id}
-                      className="flex items-center justify-between p-2 bg-gray-700 rounded-md"
+                      className="flex items-center justify-between rounded-md bg-gray-700 p-2"
                     >
-                      <div className="flex items-center space-x-2 flex-1 min-w-0">
+                      <div className="flex min-w-0 flex-1 items-center space-x-2">
                         <span className="text-lg">
                           {getFileIcon(attachment.mimetype)}
                         </span>
                         <div className="min-w-0 flex-1">
-                          <p className="text-sm text-white truncate">
+                          <p className="truncate text-sm text-white">
                             {attachment.originalName}
                           </p>
                           <p className="text-xs text-gray-400">
@@ -328,9 +328,9 @@ const TodoCard = ({
                       </div>
                       <button
                         onClick={() => handleRemoveAttachment(attachment._id)}
-                        className="text-red-400 hover:text-red-300 transition-colors"
+                        className="text-red-400 transition-colors hover:text-red-300"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="h-4 w-4" />
                       </button>
                     </div>
                   ))}
@@ -344,38 +344,38 @@ const TodoCard = ({
             <div className="mb-4">
               <button
                 onClick={() => setShowLinks(!showLinks)}
-                className="flex items-center text-sm text-gray-400 hover:text-white transition-colors mb-2"
+                className="mb-2 flex items-center text-sm text-gray-400 transition-colors hover:text-white"
               >
-                <LinkIcon className="w-4 h-4 mr-2" />
+                <LinkIcon className="mr-2 h-4 w-4" />
                 <span>{todo.links.length} Link(s)</span>
               </button>
               {showLinks && (
-                <div className="space-y-2 ml-6">
+                <div className="ml-6 space-y-2">
                   {todo.links.map((link) => (
                     <div
                       key={link._id}
-                      className="flex items-center justify-between p-2 bg-gray-700 rounded-md"
+                      className="flex items-center justify-between rounded-md bg-gray-700 p-2"
                     >
                       <div className="min-w-0 flex-1">
                         <a
                           href={link.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm text-blue-400 hover:text-blue-300 transition-colors truncate block"
+                          className="block truncate text-sm text-blue-400 transition-colors hover:text-blue-300"
                         >
                           {link.title || link.url}
                         </a>
                         {link.description && (
-                          <p className="text-xs text-gray-400 mt-1">
+                          <p className="mt-1 text-xs text-gray-400">
                             {link.description}
                           </p>
                         )}
                       </div>
                       <button
                         onClick={() => handleRemoveLink(link._id)}
-                        className="text-red-400 hover:text-red-300 transition-colors ml-2"
+                        className="ml-2 text-red-400 transition-colors hover:text-red-300"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="h-4 w-4" />
                       </button>
                     </div>
                   ))}

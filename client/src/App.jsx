@@ -41,8 +41,8 @@ const TodoApp = () => {
         setShowMobileMenu={uiStates.setShowMobileMenu}
       />
 
-      <main className="pt-20 sm:pt-24 pb-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="pb-8 pt-20 sm:pt-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {uiStates.view === "stats" ? (
             <StatsPanel />
           ) : (

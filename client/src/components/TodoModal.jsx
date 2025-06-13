@@ -114,8 +114,8 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-800 border border-gray-700 p-6 text-left align-middle shadow-xl transition-all">
-                <div className="flex items-center justify-between mb-6">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl border border-gray-700 bg-gray-800 p-6 text-left align-middle shadow-xl transition-all">
+                <div className="mb-6 flex items-center justify-between">
                   <Dialog.Title
                     as="h3"
                     className="text-xl font-semibold text-white"
@@ -124,9 +124,9 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                   </Dialog.Title>
                   <button
                     onClick={onClose}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="text-gray-400 transition-colors hover:text-white"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="h-5 w-5" />
                   </button>
                 </div>
 
@@ -135,7 +135,7 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                   <div>
                     <label
                       htmlFor="content"
-                      className="block text-sm font-medium text-gray-300 mb-2"
+                      className="mb-2 block text-sm font-medium text-gray-300"
                     >
                       Todo Content *
                     </label>
@@ -147,13 +147,13 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                       onChange={handleChange}
                       placeholder="What needs to be done?"
                       className={cn(
-                        "w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                        "w-full rounded-lg border bg-gray-700 px-3 py-2 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500",
                         errors.content ? "border-red-500" : "border-gray-600"
                       )}
                     />
                     {errors.content && (
-                      <div className="flex items-center mt-1 text-sm text-red-400">
-                        <AlertCircle className="w-4 h-4 mr-1" />
+                      <div className="mt-1 flex items-center text-sm text-red-400">
+                        <AlertCircle className="mr-1 h-4 w-4" />
                         {errors.content}
                       </div>
                     )}
@@ -163,7 +163,7 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                   <div>
                     <label
                       htmlFor="description"
-                      className="block text-sm font-medium text-gray-300 mb-2"
+                      className="mb-2 block text-sm font-medium text-gray-300"
                     >
                       Description
                     </label>
@@ -174,7 +174,7 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                       onChange={handleChange}
                       placeholder="Add more details..."
                       rows={3}
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                      className="w-full resize-none rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
@@ -182,7 +182,7 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                   <div>
                     <label
                       htmlFor="priority"
-                      className="block text-sm font-medium text-gray-300 mb-2"
+                      className="mb-2 block text-sm font-medium text-gray-300"
                     >
                       Priority
                     </label>
@@ -191,7 +191,7 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                       name="priority"
                       value={formData.priority}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
@@ -203,9 +203,9 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                   <div>
                     <label
                       htmlFor="dueDate"
-                      className="block text-sm font-medium text-gray-300 mb-2"
+                      className="mb-2 block text-sm font-medium text-gray-300"
                     >
-                      <Calendar className="w-4 h-4 inline mr-1" />
+                      <Calendar className="mr-1 inline h-4 w-4" />
                       Due Date
                     </label>
                     <input
@@ -214,7 +214,7 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                       name="dueDate"
                       value={formData.dueDate}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
@@ -223,13 +223,13 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                     <button
                       type="button"
                       onClick={onClose}
-                      className="px-4 py-2 text-gray-300 hover:text-white transition-colors"
+                      className="px-4 py-2 text-gray-300 transition-colors hover:text-white"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+                      className="rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
                       {todo ? "Update" : "Create"} Todo
                     </button>

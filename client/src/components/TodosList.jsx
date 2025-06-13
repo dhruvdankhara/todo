@@ -15,7 +15,7 @@ const TodosList = ({
     <div
       className={cn(
         layout === "grid"
-          ? "grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6"
+          ? "grid grid-cols-1 gap-4 sm:grid-cols-1 sm:gap-6 lg:grid-cols-2 xl:grid-cols-3"
           : "space-y-3 sm:space-y-4"
       )}
     >

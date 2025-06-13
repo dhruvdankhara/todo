@@ -90,8 +90,8 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-800 border border-gray-700 p-6 text-left align-middle shadow-xl transition-all">
-                <div className="flex items-center justify-between mb-6">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl border border-gray-700 bg-gray-800 p-6 text-left align-middle shadow-xl transition-all">
+                <div className="mb-6 flex items-center justify-between">
                   <Dialog.Title
                     as="h3"
                     className="text-xl font-semibold text-white"
@@ -100,17 +100,17 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
                   </Dialog.Title>
                   <button
                     onClick={handleClose}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="text-gray-400 transition-colors hover:text-white"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="h-5 w-5" />
                   </button>
                 </div>
 
                 {todo && (
-                  <div className="mb-4 p-3 bg-gray-700 rounded-lg">
+                  <div className="mb-4 rounded-lg bg-gray-700 p-3">
                     <p className="text-sm text-gray-300">
                       Adding attachment to:{" "}
-                      <span className="text-white font-medium">
+                      <span className="font-medium text-white">
                         {todo.content}
                       </span>
                     </p>
@@ -121,21 +121,21 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
                   <div
                     {...getRootProps()}
                     className={cn(
-                      "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors",
+                      "cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors",
                       isDragActive
                         ? "border-blue-400 bg-blue-400/10"
                         : selectedFiles.length
-                        ? "border-green-400 bg-green-400/10"
-                        : "border-gray-600 hover:border-gray-500"
+                          ? "border-green-400 bg-green-400/10"
+                          : "border-gray-600 hover:border-gray-500"
                     )}
                   >
                     <input {...getInputProps()} />
-                    <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+                    <Upload className="mx-auto mb-4 h-12 w-12 text-gray-400" />
                     {isDragActive ? (
                       <p className="text-blue-400">Drop the file here...</p>
                     ) : (
                       <>
-                        <p className="text-gray-300 mb-2">
+                        <p className="mb-2 text-gray-300">
                           Drag & drop a file here, or click to select
                         </p>
                         <p className="text-sm text-gray-500">
@@ -154,14 +154,14 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
                       {selectedFiles.map((file, index) => (
                         <div
                           key={index}
-                          className="flex items-center justify-between p-3 bg-gray-700 rounded-lg"
+                          className="flex items-center justify-between rounded-lg bg-gray-700 p-3"
                         >
-                          <div className="flex items-center space-x-3 flex-1 min-w-0">
+                          <div className="flex min-w-0 flex-1 items-center space-x-3">
                             <span className="text-2xl">
                               {getFileIcon(file.type)}
                             </span>
                             <div className="min-w-0 flex-1">
-                              <p className="text-sm text-white truncate">
+                              <p className="truncate text-sm text-white">
                                 {file.name}
                               </p>
                               <p className="text-xs text-gray-400">
@@ -171,23 +171,23 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
                           </div>
                           <button
                             onClick={removeFile}
-                            className="text-red-400 hover:text-red-300 transition-colors"
+                            className="text-red-400 transition-colors hover:text-red-300"
                           >
-                            <X className="w-4 h-4" />
+                            <X className="h-4 w-4" />
                           </button>
                         </div>
                       ))}
                     </div>
                   )}
 
-                  <div className="bg-blue-900/20 border border-blue-800 rounded-lg p-3">
+                  <div className="rounded-lg border border-blue-800 bg-blue-900/20 p-3">
                     <div className="flex">
-                      <AlertCircle className="w-5 h-5 text-blue-400 mr-2 flex-shrink-0" />
+                      <AlertCircle className="mr-2 h-5 w-5 flex-shrink-0 text-blue-400" />
                       <div className="text-sm text-blue-300">
-                        <p className="font-medium mb-1">
+                        <p className="mb-1 font-medium">
                           Supported file types:
                         </p>
-                        <ul className="text-xs space-y-1">
+                        <ul className="space-y-1 text-xs">
                           <li>• Images: PNG, JPG, JPEG, GIF, WebP</li>
                           <li>
                             • Documents: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX
@@ -204,14 +204,14 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
                       type="button"
                       onClick={handleClose}
                       disabled={uploading}
-                      className="px-4 py-2 text-gray-300 hover:text-white transition-colors disabled:opacity-50"
+                      className="px-4 py-2 text-gray-300 transition-colors hover:text-white disabled:opacity-50"
                     >
                       Cancel
                     </button>
                     <button
                       onClick={handleUpload}
                       disabled={!selectedFiles.length || uploading}
-                      className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {uploading ? "Uploading..." : "Upload File"}
                     </button>

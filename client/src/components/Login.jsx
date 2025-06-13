@@ -75,12 +75,12 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="flex min-h-screen items-center justify-center bg-gray-900 px-4 py-12 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8">
         <div className="text-center">
-          <div className="flex justify-center mb-6">
-            <div className="bg-blue-600 p-3 rounded-full">
-              <LogIn className="w-8 h-8 text-white" />
+          <div className="mb-6 flex justify-center">
+            <div className="rounded-full bg-blue-600 p-3">
+              <LogIn className="h-8 w-8 text-white" />
             </div>
           </div>
           <h2 className="text-3xl font-bold text-white">Welcome back</h2>
@@ -89,13 +89,13 @@ const Login = () => {
           </p>
         </div>
 
-        <div className="bg-gray-800 border border-gray-700 rounded-xl p-8">
+        <div className="rounded-xl border border-gray-700 bg-gray-800 p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
-              <div className="bg-red-900/20 border border-red-800 rounded-lg p-3">
+              <div className="rounded-lg border border-red-800 bg-red-900/20 p-3">
                 <div className="flex items-center">
-                  <AlertCircle className="w-5 h-5 text-red-400 mr-2" />
-                  <p className="text-red-400 text-sm">{error}</p>
+                  <AlertCircle className="mr-2 h-5 w-5 text-red-400" />
+                  <p className="text-sm text-red-400">{error}</p>
                 </div>
               </div>
             )}
@@ -103,12 +103,12 @@ const Login = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="mb-2 block text-sm font-medium text-gray-300"
               >
                 Email address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
                 <input
                   id="email"
                   name="email"
@@ -117,15 +117,15 @@ const Login = () => {
                   value={formData.email}
                   onChange={handleChange}
                   className={cn(
-                    "w-full pl-10 pr-4 py-3 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                    "w-full rounded-lg border bg-gray-700 py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500",
                     formErrors.email ? "border-red-500" : "border-gray-600"
                   )}
                   placeholder="Enter your email"
                 />
               </div>
               {formErrors.email && (
-                <div className="flex items-center mt-1 text-sm text-red-400">
-                  <AlertCircle className="w-4 h-4 mr-1" />
+                <div className="mt-1 flex items-center text-sm text-red-400">
+                  <AlertCircle className="mr-1 h-4 w-4" />
                   {formErrors.email}
                 </div>
               )}
@@ -134,12 +134,12 @@ const Login = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-300 mb-2"
+                className="mb-2 block text-sm font-medium text-gray-300"
               >
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Lock className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400" />
                 <input
                   id="password"
                   name="password"
@@ -148,7 +148,7 @@ const Login = () => {
                   value={formData.password}
                   onChange={handleChange}
                   className={cn(
-                    "w-full pl-10 pr-12 py-3 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                    "w-full rounded-lg border bg-gray-700 py-3 pl-10 pr-12 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500",
                     formErrors.password ? "border-red-500" : "border-gray-600"
                   )}
                   placeholder="Enter your password"
@@ -156,18 +156,18 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-400 transition-colors hover:text-white"
                 >
                   {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
+                    <EyeOff className="h-5 w-5" />
                   ) : (
-                    <Eye className="w-5 h-5" />
+                    <Eye className="h-5 w-5" />
                   )}
                 </button>
               </div>
               {formErrors.password && (
-                <div className="flex items-center mt-1 text-sm text-red-400">
-                  <AlertCircle className="w-4 h-4 mr-1" />
+                <div className="mt-1 flex items-center text-sm text-red-400">
+                  <AlertCircle className="mr-1 h-4 w-4" />
                   {formErrors.password}
                 </div>
               )}
@@ -176,16 +176,16 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+              className="flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-3 text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? (
                 <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mr-2"></div>
+                  <div className="mr-2 h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
                   Signing in...
                 </>
               ) : (
                 <>
-                  <LogIn className="w-5 h-5 mr-2" />
+                  <LogIn className="mr-2 h-5 w-5" />
                   Sign in
                 </>
               )}
@@ -197,7 +197,7 @@ const Login = () => {
               Don&apos;t have an account?{" "}
               <Link
                 to="/register"
-                className="text-blue-400 hover:text-blue-300 transition-colors font-medium"
+                className="font-medium text-blue-400 transition-colors hover:text-blue-300"
               >
                 Sign up here
               </Link>
@@ -205,11 +205,11 @@ const Login = () => {
           </div>
         </div>
 
-        <div className="bg-blue-900/20 border border-blue-800 rounded-lg p-4">
-          <h3 className="text-sm font-medium text-blue-300 mb-2">
+        <div className="rounded-lg border border-blue-800 bg-blue-900/20 p-4">
+          <h3 className="mb-2 text-sm font-medium text-blue-300">
             Demo Credentials
           </h3>
-          <div className="text-xs text-blue-200 space-y-1">
+          <div className="space-y-1 text-xs text-blue-200">
             <p>Email: demo@example.com</p>
             <p>Password: demo123</p>
           </div>

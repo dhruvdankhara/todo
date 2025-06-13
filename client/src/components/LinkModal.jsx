@@ -124,8 +124,8 @@ const LinkModal = ({ isOpen, onClose, todo }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-800 border border-gray-700 p-6 text-left align-middle shadow-xl transition-all">
-                <div className="flex items-center justify-between mb-6">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl border border-gray-700 bg-gray-800 p-6 text-left align-middle shadow-xl transition-all">
+                <div className="mb-6 flex items-center justify-between">
                   <Dialog.Title
                     as="h3"
                     className="text-xl font-semibold text-white"
@@ -134,17 +134,17 @@ const LinkModal = ({ isOpen, onClose, todo }) => {
                   </Dialog.Title>
                   <button
                     onClick={handleClose}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="text-gray-400 transition-colors hover:text-white"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="h-5 w-5" />
                   </button>
                 </div>
 
                 {todo && (
-                  <div className="mb-4 p-3 bg-gray-700 rounded-lg">
+                  <div className="mb-4 rounded-lg bg-gray-700 p-3">
                     <p className="text-sm text-gray-300">
                       Adding link to:{" "}
-                      <span className="text-white font-medium">
+                      <span className="font-medium text-white">
                         {todo.content}
                       </span>
                     </p>
@@ -155,9 +155,9 @@ const LinkModal = ({ isOpen, onClose, todo }) => {
                   <div>
                     <label
                       htmlFor="url"
-                      className="block text-sm font-medium text-gray-300 mb-2"
+                      className="mb-2 block text-sm font-medium text-gray-300"
                     >
-                      <LinkIcon className="w-4 h-4 inline mr-1" />
+                      <LinkIcon className="mr-1 inline h-4 w-4" />
                       URL *
                     </label>
                     <input
@@ -169,13 +169,13 @@ const LinkModal = ({ isOpen, onClose, todo }) => {
                       onBlur={handleUrlBlur}
                       placeholder="https://example.com"
                       className={cn(
-                        "w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+                        "w-full rounded-lg border bg-gray-700 px-3 py-2 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500",
                         errors.url ? "border-red-500" : "border-gray-600"
                       )}
                     />
                     {errors.url && (
-                      <div className="flex items-center mt-1 text-sm text-red-400">
-                        <AlertCircle className="w-4 h-4 mr-1" />
+                      <div className="mt-1 flex items-center text-sm text-red-400">
+                        <AlertCircle className="mr-1 h-4 w-4" />
                         {errors.url}
                       </div>
                     )}
@@ -184,7 +184,7 @@ const LinkModal = ({ isOpen, onClose, todo }) => {
                   <div>
                     <label
                       htmlFor="title"
-                      className="block text-sm font-medium text-gray-300 mb-2"
+                      className="mb-2 block text-sm font-medium text-gray-300"
                     >
                       Title
                     </label>
@@ -195,9 +195,9 @@ const LinkModal = ({ isOpen, onClose, todo }) => {
                       value={formData.title}
                       onChange={handleChange}
                       placeholder="Link title (optional)"
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="mt-1 text-xs text-gray-500">
                       If left empty, the domain name will be used
                     </p>
                   </div>
@@ -205,7 +205,7 @@ const LinkModal = ({ isOpen, onClose, todo }) => {
                   <div>
                     <label
                       htmlFor="description"
-                      className="block text-sm font-medium text-gray-300 mb-2"
+                      className="mb-2 block text-sm font-medium text-gray-300"
                     >
                       Description
                     </label>
@@ -216,23 +216,23 @@ const LinkModal = ({ isOpen, onClose, todo }) => {
                       onChange={handleChange}
                       placeholder="What is this link about? (optional)"
                       rows={3}
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                      className="w-full resize-none rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
                   {formData.url && !errors.url && (
-                    <div className="bg-blue-900/20 border border-blue-800 rounded-lg p-3">
+                    <div className="rounded-lg border border-blue-800 bg-blue-900/20 p-3">
                       <div className="flex items-start">
-                        <LinkIcon className="w-4 h-4 text-blue-400 mr-2 mt-0.5 flex-shrink-0" />
+                        <LinkIcon className="mr-2 mt-0.5 h-4 w-4 flex-shrink-0 text-blue-400" />
                         <div className="min-w-0 flex-1">
-                          <p className="text-sm text-blue-300 font-medium">
+                          <p className="text-sm font-medium text-blue-300">
                             {formData.title || "Link Preview"}
                           </p>
-                          <p className="text-xs text-blue-400 break-all">
+                          <p className="break-all text-xs text-blue-400">
                             {formData.url}
                           </p>
                           {formData.description && (
-                            <p className="text-xs text-gray-400 mt-1">
+                            <p className="mt-1 text-xs text-gray-400">
                               {formData.description}
                             </p>
                           )}
@@ -246,14 +246,14 @@ const LinkModal = ({ isOpen, onClose, todo }) => {
                       type="button"
                       onClick={handleClose}
                       disabled={isSubmitting}
-                      className="px-4 py-2 text-gray-300 hover:text-white transition-colors disabled:opacity-50"
+                      className="px-4 py-2 text-gray-300 transition-colors hover:text-white disabled:opacity-50"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={isSubmitting || !formData.url.trim()}
-                      className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {isSubmitting ? "Adding..." : "Add Link"}
                     </button>
