@@ -105,6 +105,7 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
 
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
+            {" "}
             <Transition.Child
               as={React.Fragment}
               enter="ease-out duration-300"
@@ -114,7 +115,7 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl border border-gray-700 bg-gray-800 p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-3xl border border-gray-700/50 bg-gradient-to-br from-gray-800/95 to-gray-900/95 p-8 text-left align-middle shadow-2xl backdrop-blur-sm transition-all">
                 <div className="mb-6 flex items-center justify-between">
                   <Dialog.Title
                     as="h3"
@@ -124,7 +125,7 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                   </Dialog.Title>
                   <button
                     onClick={onClose}
-                    className="text-gray-400 transition-colors hover:text-white"
+                    className="rounded-full p-1 text-gray-400 transition-all duration-200 hover:bg-gray-700/50 hover:text-white"
                   >
                     <X className="h-5 w-5" />
                   </button>
@@ -147,7 +148,7 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                       onChange={handleChange}
                       placeholder="What needs to be done?"
                       className={cn(
-                        "w-full rounded-lg border bg-gray-700 px-3 py-2 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500",
+                        "w-full rounded-2xl border bg-gray-700/70 px-4 py-3 text-white placeholder-gray-400 backdrop-blur-sm transition-all duration-200 focus:border-transparent focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500",
                         errors.content ? "border-red-500" : "border-gray-600"
                       )}
                     />
@@ -158,7 +159,6 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                       </div>
                     )}
                   </div>
-
                   {/* Description */}
                   <div>
                     <label
@@ -166,7 +166,7 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                       className="mb-2 block text-sm font-medium text-gray-300"
                     >
                       Description
-                    </label>
+                    </label>{" "}
                     <textarea
                       id="description"
                       name="description"
@@ -174,10 +174,9 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                       onChange={handleChange}
                       placeholder="Add more details..."
                       rows={3}
-                      className="w-full resize-none rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full resize-none rounded-2xl border border-gray-600/70 bg-gray-700/70 px-4 py-3 text-white placeholder-gray-400 backdrop-blur-sm transition-all duration-200 focus:border-transparent focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
-
                   {/* Priority */}
                   <div>
                     <label
@@ -185,20 +184,19 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                       className="mb-2 block text-sm font-medium text-gray-300"
                     >
                       Priority
-                    </label>
+                    </label>{" "}
                     <select
                       id="priority"
                       name="priority"
                       value={formData.priority}
                       onChange={handleChange}
-                      className="w-full rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full rounded-2xl border border-gray-600/70 bg-gray-700/70 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-transparent focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
                       <option value="high">High</option>
                     </select>
                   </div>
-
                   {/* Due Date */}
                   <div>
                     <label
@@ -207,29 +205,28 @@ const TodoModal = ({ isOpen, onClose, todo = null }) => {
                     >
                       <Calendar className="mr-1 inline h-4 w-4" />
                       Due Date
-                    </label>
+                    </label>{" "}
                     <input
                       type="date"
                       id="dueDate"
                       name="dueDate"
                       value={formData.dueDate}
                       onChange={handleChange}
-                      className="w-full rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full rounded-2xl border border-gray-600/70 bg-gray-700/70 px-4 py-3 text-white backdrop-blur-sm transition-all duration-200 focus:border-transparent focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                  </div>
-
+                  </div>{" "}
                   {/* Actions */}
-                  <div className="flex justify-end space-x-3 pt-4">
+                  <div className="flex justify-end space-x-3 pt-6">
                     <button
                       type="button"
                       onClick={onClose}
-                      className="px-4 py-2 text-gray-300 transition-colors hover:text-white"
+                      className="rounded-2xl px-6 py-3 text-gray-300 transition-all duration-200 hover:bg-gray-700/50 hover:text-white"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+                      className="rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-3 text-white shadow-lg shadow-blue-600/25 transition-all duration-200 hover:from-blue-700 hover:to-blue-800 hover:shadow-blue-600/40 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
                       {todo ? "Update" : "Create"} Todo
                     </button>

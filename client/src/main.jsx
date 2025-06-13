@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import "./index.css";
 import store from "./store";
 import App from "./App.jsx";
+import { TodosPage, StatsPage, NotFoundPage } from "./pages/index.js";
 import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
@@ -19,14 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route
-              path="/todos"
-              element={
-                <ProtectedRoute>
-                  <App />
-                </ProtectedRoute>
-              }
-            />
+
             <Route
               path="/"
               element={
@@ -34,7 +28,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                   <App />
                 </ProtectedRoute>
               }
-            />
+            >
+              <Route index element={<TodosPage />} />
+              <Route path="todos" element={<TodosPage />} />
+              <Route path="stats" element={<StatsPage />} />
+            </Route>
+
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
           <Toaster
             position="top-right"

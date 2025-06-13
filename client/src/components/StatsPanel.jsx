@@ -22,7 +22,8 @@ const StatCard = ({ icon: Icon, title, value, subtitle, color = "blue" }) => {
   return (
     <div className="rounded-xl border border-gray-700 bg-gray-800 p-6 transition-all duration-200 hover:border-gray-600">
       <div className="mb-4 flex items-center justify-between">
-        <div className={cn("rounded-lg border p-2", colorClasses[color])}>
+        {" "}
+        <div className={cn("rounded-2xl border p-2", colorClasses[color])}>
           <Icon className="h-5 w-5" />
         </div>
         <div className="text-right">

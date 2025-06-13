@@ -5,6 +5,7 @@ import { useDropzone } from "react-dropzone";
 import { X, Upload, AlertCircle } from "lucide-react";
 import { addTodoAttachment } from "../store/todosSlice";
 import { cn, formatFileSize, getFileIcon } from "../utils/cn";
+import PropTypes from "prop-types";
 
 const FileUploadModal = ({ isOpen, onClose, todo }) => {
   const dispatch = useDispatch();
@@ -36,9 +37,14 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
     maxSize: 10 * 1024 * 1024, // 10MB
     multiple: false,
   });
-
   const handleUpload = async () => {
-    if (!selectedFiles.length || !todo) return;
+    if (!selectedFiles.length) return;
+
+    // Ensure todo exists and has an ID
+    if (!todo || !todo._id) {
+      console.error("No todo selected for file upload");
+      return;
+    }
 
     setUploading(true);
     try {
@@ -90,7 +96,7 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl border border-gray-700 bg-gray-800 p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-3xl border border-gray-700/50 bg-gradient-to-br from-gray-800/95 to-gray-900/95 p-8 text-left align-middle shadow-2xl backdrop-blur-sm transition-all">
                 <div className="mb-6 flex items-center justify-between">
                   <Dialog.Title
                     as="h3"
@@ -100,14 +106,13 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
                   </Dialog.Title>
                   <button
                     onClick={handleClose}
-                    className="text-gray-400 transition-colors hover:text-white"
+                    className="rounded-full p-1 text-gray-400 transition-all duration-200 hover:bg-gray-700/50 hover:text-white"
                   >
                     <X className="h-5 w-5" />
                   </button>
-                </div>
-
-                {todo && (
-                  <div className="mb-4 rounded-lg bg-gray-700 p-3">
+                </div>{" "}
+                {todo && todo.content && (
+                  <div className="mb-4 rounded-2xl border border-gray-600/30 bg-gradient-to-r from-gray-700/70 to-gray-800/70 p-4 backdrop-blur-sm">
                     <p className="text-sm text-gray-300">
                       Adding attachment to:{" "}
                       <span className="font-medium text-white">
@@ -116,17 +121,24 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
                     </p>
                   </div>
                 )}
-
+                {!todo && (
+                  <div className="mb-4 rounded-2xl border border-red-600/30 bg-red-900/20 p-4">
+                    <p className="text-sm text-red-400">
+                      Error: No todo selected. Please close this dialog and try
+                      again.
+                    </p>
+                  </div>
+                )}
                 <div className="space-y-4">
                   <div
                     {...getRootProps()}
                     className={cn(
-                      "cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors",
+                      "cursor-pointer rounded-2xl border-2 border-dashed p-8 text-center transition-all duration-200",
                       isDragActive
-                        ? "border-blue-400 bg-blue-400/10"
+                        ? "border-blue-400/70 bg-blue-400/10 backdrop-blur-sm"
                         : selectedFiles.length
-                          ? "border-green-400 bg-green-400/10"
-                          : "border-gray-600 hover:border-gray-500"
+                          ? "border-green-400/70 bg-green-400/10 backdrop-blur-sm"
+                          : "border-gray-600/70 hover:border-gray-500/70 hover:bg-gray-700/20"
                     )}
                   >
                     <input {...getInputProps()} />
@@ -154,7 +166,7 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
                       {selectedFiles.map((file, index) => (
                         <div
                           key={index}
-                          className="flex items-center justify-between rounded-lg bg-gray-700 p-3"
+                          className="flex items-center justify-between rounded-2xl bg-gray-700 p-3"
                         >
                           <div className="flex min-w-0 flex-1 items-center space-x-3">
                             <span className="text-2xl">
@@ -180,7 +192,7 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
                     </div>
                   )}
 
-                  <div className="rounded-lg border border-blue-800 bg-blue-900/20 p-3">
+                  <div className="rounded-2xl border border-blue-800 bg-blue-900/20 p-3">
                     <div className="flex">
                       <AlertCircle className="mr-2 h-5 w-5 flex-shrink-0 text-blue-400" />
                       <div className="text-sm text-blue-300">
@@ -207,11 +219,11 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
                       className="px-4 py-2 text-gray-300 transition-colors hover:text-white disabled:opacity-50"
                     >
                       Cancel
-                    </button>
+                    </button>{" "}
                     <button
                       onClick={handleUpload}
-                      disabled={!selectedFiles.length || uploading}
-                      className="rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+                      disabled={!selectedFiles.length || uploading || !todo}
+                      className="rounded-2xl bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {uploading ? "Uploading..." : "Upload File"}
                     </button>
@@ -224,6 +236,15 @@ const FileUploadModal = ({ isOpen, onClose, todo }) => {
       </Dialog>
     </Transition>
   );
+};
+
+FileUploadModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  todo: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+  }),
 };
 
 export default FileUploadModal;

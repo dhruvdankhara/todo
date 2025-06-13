@@ -75,11 +75,10 @@ const TodoCard = ({
   const totalSubtasks = todo.subtasks?.length || 0;
 
   const isListLayout = layout === "list";
-
   return (
     <div
       className={cn(
-        "group relative rounded-xl border border-gray-700 bg-gray-800 transition-all duration-200 hover:border-gray-600 hover:bg-gray-800/80",
+        "group relative rounded-2xl border border-gray-700/50 bg-gradient-to-br from-gray-800/90 to-gray-800/70 shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:border-gray-600/70 hover:shadow-xl hover:shadow-gray-900/20",
         todo.isCompleted && "opacity-75",
         isListLayout ? "flex items-center gap-4 p-4" : "p-6"
       )}
@@ -123,20 +122,18 @@ const TodoCard = ({
                 onClick={handleViewDetails}
               >
                 {todo.content}
-              </h3>
-
+              </h3>{" "}
               {/* Priority in list layout */}
               {todo.priority && (
                 <span
                   className={cn(
-                    "rounded-md border px-2 py-1 text-xs font-medium",
+                    "rounded-full border px-3 py-1 text-xs font-medium shadow-sm",
                     priorityColors[todo.priority]
                   )}
                 >
                   {todo.priority.toUpperCase()}
                 </span>
               )}
-
               {/* Due date in list layout */}
               {todo.dueDate && isListLayout && (
                 <div className="flex items-center text-sm text-gray-400">
@@ -155,11 +152,10 @@ const TodoCard = ({
               </p>
             )}
           </div>
-        </div>
-
+        </div>{" "}
         {/* List layout compact info */}
         {isListLayout && (
-          <div className="flex items-center gap-2 rounded-md border border-gray-700 bg-gray-800 p-2">
+          <div className="flex items-center gap-2 rounded-2xl border border-gray-700/50 bg-gradient-to-r from-gray-800/80 to-gray-700/80 p-3 shadow-sm backdrop-blur-sm">
             <div className="flex flex-col items-end gap-3 text-xs text-gray-500 md:flex-row md:items-center">
               {/* Subtasks count */}
               {totalSubtasks > 0 && (
@@ -180,11 +176,10 @@ const TodoCard = ({
               <span>Created {format(new Date(todo.createdAt), "MMM d")}</span>
             </div>
           </div>
-        )}
-
+        )}{" "}
         {/* Actions Menu */}
         <Menu as="div" className="relative">
-          <Menu.Button className="rounded-md p-1 text-gray-400 transition-colors hover:bg-gray-700 hover:text-white">
+          <Menu.Button className="rounded-2xl p-2 text-gray-400 backdrop-blur-sm transition-all duration-200 hover:bg-gray-700/80 hover:text-white hover:shadow-sm">
             <MoreVertical className="h-4 w-4" />
           </Menu.Button>
           <Transition
@@ -195,8 +190,8 @@ const TodoCard = ({
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           >
-            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 rounded-md border border-gray-700 bg-gray-800 shadow-lg">
-              <div className="py-1">
+            <Menu.Items className="absolute right-0 z-10 mt-2 w-48 rounded-2xl border border-gray-700/50 bg-gray-800/95 shadow-xl backdrop-blur-sm">
+              <div className="py-2">
                 <Menu.Item>
                   {({ active }) => (
                     <button
@@ -280,10 +275,10 @@ const TodoCard = ({
                 <span>
                   {completedSubtasks}/{totalSubtasks}
                 </span>
-              </div>
-              <div className="h-2 w-full rounded-full bg-gray-700">
+              </div>{" "}
+              <div className="h-3 w-full overflow-hidden rounded-full bg-gray-700/70 shadow-inner">
                 <div
-                  className="h-2 rounded-full bg-blue-500 transition-all duration-300"
+                  className="h-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 shadow-sm transition-all duration-500"
                   style={{
                     width: `${
                       totalSubtasks > 0

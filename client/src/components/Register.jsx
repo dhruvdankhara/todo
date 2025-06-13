@@ -96,12 +96,11 @@ const Register = () => {
       navigate("/login");
     }
   };
-
   return (
-    <div className="flex min-h-screen flex-col justify-center bg-gray-900 py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen flex-col justify-center bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="rounded-full bg-blue-600 p-3">
+          <div className="rounded-3xl bg-gradient-to-br from-blue-600 to-blue-700 p-4 shadow-lg shadow-blue-600/25">
             <UserPlus className="h-8 w-8 text-white" />
           </div>
         </div>
@@ -120,11 +119,11 @@ const Register = () => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="border border-gray-700 bg-gray-800 px-4 py-8 shadow-xl sm:rounded-lg sm:px-10">
+        <div className="border border-gray-700/50 bg-gradient-to-br from-gray-800/90 to-gray-900/90 px-6 py-10 shadow-2xl backdrop-blur-sm sm:rounded-3xl sm:px-12">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Global Error */}
             {error && (
-              <div className="flex items-start space-x-2 rounded-md border border-red-700 bg-red-900/20 p-3">
+              <div className="flex items-start space-x-2 rounded-2xl border border-red-700/50 bg-red-900/20 p-4 backdrop-blur-sm">
                 <AlertCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-400" />
                 <span className="text-sm text-red-400">{error}</span>
               </div>
@@ -137,9 +136,9 @@ const Register = () => {
                 className="block text-sm font-medium text-gray-300"
               >
                 Full Name
-              </label>
+              </label>{" "}
               <div className="relative mt-1">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center pl-4">
                   <User className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
@@ -151,10 +150,10 @@ const Register = () => {
                   value={formData.name}
                   onChange={handleChange}
                   className={cn(
-                    "block w-full rounded-md border bg-gray-700 py-2 pl-10 pr-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500",
+                    "block w-full rounded-2xl border bg-gray-700/90 py-3 pl-12 pr-4 text-white placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500",
                     formErrors.name
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-600"
+                      ? "border-red-500/70 focus:ring-red-500"
+                      : "border-gray-600/70"
                   )}
                   placeholder="Enter your full name"
                 />
@@ -171,9 +170,9 @@ const Register = () => {
                 className="block text-sm font-medium text-gray-300"
               >
                 Email address
-              </label>
+              </label>{" "}
               <div className="relative mt-1">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center pl-4">
                   <Mail className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
@@ -185,10 +184,10 @@ const Register = () => {
                   value={formData.email}
                   onChange={handleChange}
                   className={cn(
-                    "block w-full rounded-md border bg-gray-700 py-2 pl-10 pr-3 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500",
+                    "block w-full rounded-2xl border bg-gray-700/90 py-3 pl-12 pr-4 text-white placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500",
                     formErrors.email
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-600"
+                      ? "border-red-500/70 focus:ring-red-500"
+                      : "border-gray-600/70"
                   )}
                   placeholder="Enter your email"
                 />
@@ -205,9 +204,9 @@ const Register = () => {
                 className="block text-sm font-medium text-gray-300"
               >
                 Password
-              </label>
+              </label>{" "}
               <div className="relative mt-1">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center pl-4">
                   <Lock className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
@@ -219,23 +218,25 @@ const Register = () => {
                   value={formData.password}
                   onChange={handleChange}
                   className={cn(
-                    "block w-full rounded-md border bg-gray-700 py-2 pl-10 pr-10 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500",
+                    "block w-full rounded-2xl border bg-gray-700/90 py-3 pl-12 pr-14 text-white placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500",
                     formErrors.password
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-600"
+                      ? "border-red-500/70 focus:ring-red-500"
+                      : "border-gray-600/70"
                   )}
                   placeholder="Enter your password"
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 flex items-center pr-3"
+                  className="absolute inset-y-0 right-0 z-10 flex items-center pr-4"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-300" />
-                  ) : (
-                    <Eye className="h-5 w-5 text-gray-400 hover:text-gray-300" />
-                  )}
+                  <div className="rounded-full p-1 transition-all duration-200 hover:bg-gray-600/50">
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-300" />
+                    ) : (
+                      <Eye className="h-5 w-5 text-gray-400 hover:text-gray-300" />
+                    )}
+                  </div>
                 </button>
               </div>
               {formErrors.password && (
@@ -252,9 +253,9 @@ const Register = () => {
                 className="block text-sm font-medium text-gray-300"
               >
                 Confirm Password
-              </label>
+              </label>{" "}
               <div className="relative mt-1">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center pl-4">
                   <Lock className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
@@ -266,23 +267,25 @@ const Register = () => {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   className={cn(
-                    "block w-full rounded-md border bg-gray-700 py-2 pl-10 pr-10 text-white placeholder-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500",
+                    "block w-full rounded-2xl border bg-gray-700/90 py-3 pl-12 pr-14 text-white placeholder-gray-400 transition-all duration-200 focus:border-transparent focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500",
                     formErrors.confirmPassword
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-600"
+                      ? "border-red-500/70 focus:ring-red-500"
+                      : "border-gray-600/70"
                   )}
                   placeholder="Confirm your password"
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 flex items-center pr-3"
+                  className="absolute inset-y-0 right-0 z-10 flex items-center pr-4"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
-                  {showConfirmPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-300" />
-                  ) : (
-                    <Eye className="h-5 w-5 text-gray-400 hover:text-gray-300" />
-                  )}
+                  <div className="rounded-full p-1 transition-all duration-200 hover:bg-gray-600/50">
+                    {showConfirmPassword ? (
+                      <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-300" />
+                    ) : (
+                      <Eye className="h-5 w-5 text-gray-400 hover:text-gray-300" />
+                    )}
+                  </div>
                 </button>
               </div>
               {formErrors.confirmPassword && (
@@ -294,14 +297,15 @@ const Register = () => {
 
             {/* Submit Button */}
             <div>
+              {" "}
               <button
                 type="submit"
                 disabled={loading}
                 className={cn(
-                  "flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800",
+                  "flex w-full justify-center rounded-2xl border border-transparent px-6 py-4 text-sm font-medium text-white shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800",
                   loading
                     ? "cursor-not-allowed bg-gray-600"
-                    : "bg-blue-600 hover:bg-blue-700"
+                    : "bg-gradient-to-r from-blue-600 to-blue-700 shadow-blue-600/25 hover:from-blue-700 hover:to-blue-800 hover:shadow-blue-600/40"
                 )}
               >
                 {loading ? (

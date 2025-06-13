@@ -276,28 +276,28 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-2xl transition-all">
+                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-3xl border border-gray-700/50 bg-gradient-to-br from-gray-800/95 to-gray-900/95 shadow-2xl backdrop-blur-sm transition-all">
                   {/* Header */}
-                  <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center justify-between border-b border-gray-700/50 bg-gradient-to-r from-gray-800/50 to-gray-700/50 p-6">
                     <div className="flex items-center space-x-3">
                       <button
                         onClick={handleToggleStatus}
                         className={cn(
-                          "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all",
+                          "flex h-7 w-7 items-center justify-center rounded-full border-2 shadow-sm transition-all duration-200",
                           currentTodo.isCompleted
-                            ? "bg-emerald-500 border-emerald-500 text-white"
-                            : "border-gray-300 dark:border-gray-600 hover:border-emerald-500"
+                            ? "border-emerald-500 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-emerald-500/25"
+                            : "border-gray-600 hover:border-emerald-500 hover:bg-emerald-500/10"
                         )}
                       >
                         {currentTodo.isCompleted && (
-                          <Check className="w-4 h-4" />
+                          <Check className="h-4 w-4" />
                         )}
                       </button>
                       <div>
-                        <Dialog.Title className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <Dialog.Title className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-lg font-semibold text-transparent">
                           Todo Details
                         </Dialog.Title>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                        <p className="text-sm text-gray-400">
                           Created{" "}
                           {currentTodo.createdAt
                             ? format(
@@ -311,24 +311,23 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                     <div className="flex items-center space-x-2">
                       <button
                         onClick={handleDeleteTodo}
-                        className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all"
+                        className="rounded-2xl p-2 text-red-400 transition-all duration-200 hover:bg-red-500/20 hover:text-red-300"
                       >
-                        <Trash2 className="w-5 h-5" />
+                        <Trash2 className="h-5 w-5" />
                       </button>
                       <button
                         onClick={onClose}
-                        className="p-2 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all"
+                        className="rounded-2xl p-2 text-gray-400 transition-all duration-200 hover:bg-gray-700/50 hover:text-white"
                       >
-                        <X className="w-5 h-5" />
+                        <X className="h-5 w-5" />
                       </button>
                     </div>
-                  </div>
-
+                  </div>{" "}
                   {/* Content */}
-                  <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+                  <div className="max-h-[70vh] space-y-6 overflow-y-auto p-6">
                     {/* Title */}
                     <div>
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+                      <label className="mb-2 block text-sm font-medium text-gray-300">
                         Title
                       </label>
                       {isEditingTitle ? (
@@ -339,33 +338,32 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                             onChange={(e) => setEditedTitle(e.target.value)}
                             onBlur={saveTitle}
                             onKeyPress={(e) => e.key === "Enter" && saveTitle()}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                            className="w-full rounded-2xl border border-gray-600/70 bg-gray-700/90 px-4 py-3 text-white transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                             autoFocus
                           />
                         </div>
                       ) : (
                         <div
                           className={cn(
-                            "p-3 rounded-lg border border-transparent cursor-pointer hover:border-gray-300 dark:hover:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all group",
+                            "group cursor-pointer rounded-2xl border border-transparent p-4 transition-all duration-200 hover:border-gray-600/70 hover:bg-gray-700/50",
                             currentTodo.isCompleted && "opacity-60"
                           )}
                           onClick={() => setIsEditingTitle(true)}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="text-gray-900 dark:text-white font-medium">
+                            <span className="font-medium text-white">
                               {currentTodo.content}
                             </span>
-                            <Edit2 className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <Edit2 className="h-4 w-4 text-gray-400 opacity-0 transition-opacity group-hover:opacity-100" />
                           </div>
                         </div>
                       )}
                     </div>
-
                     {/* Priority & Due Date Row */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                       {/* Priority */}
                       <div>
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+                        <label className="mb-2 block text-sm font-medium text-gray-300">
                           Priority
                         </label>
                         {isEditingPriority ? (
@@ -373,7 +371,7 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                             value={editedPriority}
                             onChange={(e) => setEditedPriority(e.target.value)}
                             onBlur={savePriority}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                            className="w-full rounded-2xl border border-gray-600/70 bg-gray-700/90 px-4 py-3 text-white transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                             autoFocus
                           >
                             <option value="low">Low Priority</option>
@@ -384,17 +382,17 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                           <button
                             onClick={() => setIsEditingPriority(true)}
                             className={cn(
-                              "w-full px-3 py-2 rounded-lg border-2 text-sm font-medium transition-all hover:scale-105",
+                              "w-full rounded-2xl border-2 px-4 py-3 text-sm font-medium shadow-sm transition-all duration-200 hover:scale-105",
                               currentTodo.priority === "low" &&
-                                "bg-emerald-100 border-emerald-300 text-emerald-800 dark:bg-emerald-900/20 dark:border-emerald-600 dark:text-emerald-400",
+                                "border-emerald-500/50 bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 text-emerald-400",
                               currentTodo.priority === "medium" &&
-                                "bg-amber-100 border-amber-300 text-amber-800 dark:bg-amber-900/20 dark:border-amber-600 dark:text-amber-400",
+                                "border-amber-500/50 bg-gradient-to-r from-amber-500/20 to-amber-600/20 text-amber-400",
                               currentTodo.priority === "high" &&
-                                "bg-red-100 border-red-300 text-red-800 dark:bg-red-900/20 dark:border-red-600 dark:text-red-400"
+                                "border-red-500/50 bg-gradient-to-r from-red-500/20 to-red-600/20 text-red-400"
                             )}
                           >
                             <div className="flex items-center justify-center space-x-2">
-                              <Flag className="w-4 h-4" />
+                              <Flag className="h-4 w-4" />
                               <span>
                                 {priorityConfig[currentTodo.priority]?.label}
                               </span>
@@ -405,7 +403,7 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
 
                       {/* Due Date */}
                       <div>
-                        <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+                        <label className="mb-2 block text-sm font-medium text-gray-300">
                           Due Date
                         </label>
                         {isEditingDueDate ? (
@@ -414,16 +412,16 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                             value={editedDueDate}
                             onChange={(e) => setEditedDueDate(e.target.value)}
                             onBlur={saveDueDate}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                            className="w-full rounded-2xl border border-gray-600/70 bg-gray-700/90 px-4 py-3 text-white transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                             autoFocus
                           />
                         ) : (
                           <button
                             onClick={() => setIsEditingDueDate(true)}
-                            className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all text-left"
+                            className="w-full rounded-2xl border border-gray-600/70 px-4 py-3 text-left text-gray-300 transition-all duration-200 hover:border-gray-500/70 hover:bg-gray-700/50"
                           >
                             <div className="flex items-center space-x-2">
-                              <Calendar className="w-4 h-4" />
+                              <Calendar className="h-4 w-4" />
                               <span className="text-sm">
                                 {currentTodo.dueDate
                                   ? format(
@@ -437,10 +435,9 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                         )}
                       </div>
                     </div>
-
                     {/* Description */}
                     <div>
-                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+                      <label className="mb-2 block text-sm font-medium text-gray-300">
                         Description
                       </label>
                       {isEditingDescription ? (
@@ -453,45 +450,44 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                             onBlur={saveDescription}
                             placeholder="Add a description..."
                             rows={3}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 resize-none"
+                            className="w-full resize-none rounded-2xl border border-gray-600/70 bg-gray-700/90 px-4 py-3 text-white transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                             autoFocus
                           />
                         </div>
                       ) : (
                         <div
-                          className="p-3 rounded-lg border border-dashed border-gray-300 dark:border-gray-600 cursor-pointer hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-all group min-h-[80px] flex items-center"
+                          className="group flex min-h-[80px] cursor-pointer items-center rounded-2xl border border-dashed border-gray-600/70 p-4 transition-all duration-200 hover:border-blue-500/70 hover:bg-blue-500/10"
                           onClick={() => setIsEditingDescription(true)}
                         >
                           {currentTodo.description ? (
-                            <div className="flex items-start justify-between w-full">
-                              <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
+                            <div className="flex w-full items-start justify-between">
+                              <p className="whitespace-pre-wrap text-gray-300">
                                 {currentTodo.description}
                               </p>
-                              <Edit2 className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity ml-2 flex-shrink-0" />
+                              <Edit2 className="ml-2 h-4 w-4 flex-shrink-0 text-gray-400 opacity-0 transition-opacity group-hover:opacity-100" />
                             </div>
                           ) : (
-                            <div className="flex items-center justify-center w-full text-gray-500 dark:text-gray-400">
-                              <FileText className="w-5 h-5 mr-2" />
+                            <div className="flex w-full items-center justify-center text-gray-400">
+                              <FileText className="mr-2 h-5 w-5" />
                               <span>Click to add description</span>
                             </div>
                           )}
                         </div>
                       )}
                     </div>
-
                     {/* Subtasks */}
                     <div>
-                      <div className="flex items-center justify-between mb-3">
+                      <div className="mb-3 flex items-center justify-between">
                         <div>
-                          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                          <h3 className="text-sm font-medium text-gray-300">
                             Subtasks{" "}
                             {totalSubtasks > 0 &&
                               `(${completedSubtasks}/${totalSubtasks})`}
                           </h3>
                           {totalSubtasks > 0 && (
-                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-1">
+                            <div className="mt-2 h-2 w-full rounded-full bg-gray-700/70 shadow-inner">
                               <div
-                                className="bg-emerald-500 h-1.5 rounded-full transition-all duration-300"
+                                className="h-2 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-600 shadow-sm transition-all duration-500"
                                 style={{ width: `${progressPercentage}%` }}
                               />
                             </div>
@@ -499,21 +495,20 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                         </div>
                         <button
                           onClick={() => setShowSubtaskInput(true)}
-                          className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all"
+                          className="rounded-2xl p-2 text-blue-400 transition-all duration-200 hover:bg-blue-500/20"
                         >
-                          <Plus className="w-4 h-4" />
+                          <Plus className="h-4 w-4" />
                         </button>
-                      </div>
-
+                      </div>{" "}
                       {/* Add Subtask Input */}
                       {showSubtaskInput && (
-                        <div className="flex items-center space-x-2 mb-3">
+                        <div className="mb-3 flex items-center space-x-2">
                           <input
                             type="text"
                             value={newSubtask}
                             onChange={(e) => setNewSubtask(e.target.value)}
                             placeholder="Add a subtask..."
-                            className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                            className="flex-1 rounded-2xl border border-gray-600/70 bg-gray-700/90 px-4 py-3 text-white transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-blue-500"
                             onKeyPress={(e) =>
                               e.key === "Enter" && handleAddSubtask()
                             }
@@ -522,50 +517,49 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                           <button
                             onClick={handleAddSubtask}
                             disabled={!newSubtask.trim()}
-                            className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                            className="rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 p-3 text-white shadow-sm transition-all duration-200 hover:from-blue-700 hover:to-blue-800 disabled:cursor-not-allowed disabled:opacity-50"
                           >
-                            <Check className="w-4 h-4" />
+                            <Check className="h-4 w-4" />
                           </button>
                           <button
                             onClick={() => {
                               setShowSubtaskInput(false);
                               setNewSubtask("");
                             }}
-                            className="p-2 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all"
+                            className="rounded-2xl p-3 text-gray-400 transition-all duration-200 hover:bg-gray-700/50"
                           >
-                            <X className="w-4 h-4" />
+                            <X className="h-4 w-4" />
                           </button>
                         </div>
                       )}
-
                       {/* Subtasks List */}
                       <div className="space-y-2">
                         {currentTodo.subtasks && currentTodo.subtasks.length > 0
                           ? currentTodo.subtasks.map((subtask) => (
                               <div
                                 key={subtask._id}
-                                className="flex items-center space-x-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all group"
+                                className="group flex items-center space-x-3 rounded-2xl border border-gray-700/50 p-4 transition-all duration-200 hover:bg-gray-700/30"
                               >
                                 <button
                                   onClick={() =>
                                     handleToggleSubtask(subtask._id)
                                   }
                                   className={cn(
-                                    "w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all",
+                                    "flex h-5 w-5 items-center justify-center rounded-full border-2 transition-all duration-200",
                                     subtask.isCompleted
-                                      ? "bg-emerald-500 border-emerald-500 text-white"
-                                      : "border-gray-300 dark:border-gray-600 hover:border-emerald-500"
+                                      ? "border-emerald-500 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-emerald-500/25"
+                                      : "border-gray-600 hover:border-emerald-500"
                                   )}
                                 >
                                   {subtask.isCompleted && (
-                                    <Check className="w-3 h-3" />
+                                    <Check className="h-3 w-3" />
                                   )}
                                 </button>
                                 <span
                                   className={cn(
-                                    "flex-1 text-gray-700 dark:text-gray-300",
+                                    "flex-1 text-gray-300",
                                     subtask.isCompleted &&
-                                      "line-through text-gray-500"
+                                      "text-gray-500 line-through"
                                   )}
                                 >
                                   {subtask.content}
@@ -574,30 +568,30 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                                   onClick={() =>
                                     handleDeleteSubtask(subtask._id)
                                   }
-                                  className="p-1 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all"
+                                  className="p-1 text-gray-400 opacity-0 transition-all duration-200 hover:text-red-400 group-hover:opacity-100"
                                 >
-                                  <Trash2 className="w-4 h-4" />
+                                  <Trash2 className="h-4 w-4" />
                                 </button>
                               </div>
                             ))
                           : !showSubtaskInput && (
                               <div
-                                className="p-6 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-all"
+                                className="cursor-pointer rounded-2xl border border-dashed border-gray-600/70 p-6 text-center transition-all duration-200 hover:border-blue-500/70 hover:bg-blue-500/10"
                                 onClick={() => setShowSubtaskInput(true)}
                               >
-                                <Plus className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                                <p className="text-gray-500 dark:text-gray-400">
+                                {" "}
+                                <Plus className="mx-auto mb-2 h-8 w-8 text-gray-400" />
+                                <p className="text-gray-400">
                                   Add your first subtask
                                 </p>
                               </div>
                             )}
                       </div>
                     </div>
-
-                    {/* Attachments Section */}
+                    {/* Attachments Section */}{" "}
                     <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <div className="mb-3 flex items-center justify-between">
+                        <h3 className="text-sm font-medium text-gray-300">
                           Attachments{" "}
                           {currentTodo.attachments &&
                             currentTodo.attachments.length > 0 &&
@@ -605,37 +599,37 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                         </h3>
                         <button
                           onClick={() => setShowAttachmentInput(true)}
-                          className="p-2 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-all"
+                          className="rounded-2xl p-2 text-emerald-400 transition-all duration-200 hover:bg-emerald-500/20"
                         >
-                          <Plus className="w-4 h-4" />
+                          <Plus className="h-4 w-4" />
                         </button>
                       </div>
 
                       {/* Add Attachment Input */}
                       {showAttachmentInput && (
-                        <div className="flex items-center space-x-2 mb-3 p-3 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
+                        <div className="mb-3 flex items-center space-x-2 rounded-2xl border border-dashed border-gray-600/70 p-4">
                           <input
                             type="file"
                             onChange={(e) =>
                               setNewAttachmentFile(e.target.files[0])
                             }
-                            className="flex-1 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                            className="flex-1 text-sm text-gray-300 transition-all duration-200 file:mr-4 file:rounded-2xl file:border-0 file:bg-blue-500/20 file:px-4 file:py-2 file:text-sm file:font-medium file:text-blue-400 hover:file:bg-blue-500/30"
                           />
                           <button
                             onClick={handleAddAttachment}
                             disabled={!newAttachmentFile}
-                            className="p-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                            className="rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-700 p-3 text-white shadow-sm transition-all duration-200 hover:from-emerald-700 hover:to-emerald-800 disabled:cursor-not-allowed disabled:opacity-50"
                           >
-                            <Upload className="w-4 h-4" />
+                            <Upload className="h-4 w-4" />
                           </button>
                           <button
                             onClick={() => {
                               setShowAttachmentInput(false);
                               setNewAttachmentFile(null);
                             }}
-                            className="p-2 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all"
+                            className="rounded-2xl p-3 text-gray-400 transition-all duration-200 hover:bg-gray-700/50"
                           >
-                            <X className="w-4 h-4" />
+                            <X className="h-4 w-4" />
                           </button>
                         </div>
                       )}
@@ -647,13 +641,13 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                           {currentTodo.attachments.map((file) => (
                             <div
                               key={file._id}
-                              className="flex items-center space-x-3 p-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all group"
+                              className="group flex items-center space-x-3 rounded-2xl border border-gray-700/50 p-3 transition-all duration-200 hover:bg-gray-700/30"
                             >
                               {isImageFile(file) ? (
                                 <img
                                   src={getImageUrl(file)}
                                   alt={file.filename}
-                                  className="w-8 h-8 object-cover rounded cursor-pointer"
+                                  className="h-10 w-10 cursor-pointer rounded-xl object-cover shadow-sm"
                                   onClick={() => setImagePreview(file)}
                                   onError={(e) => {
                                     console.error("Failed to load image:", e);
@@ -664,32 +658,32 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                                   }}
                                 />
                               ) : (
-                                <div className="w-8 h-8 flex items-center justify-center text-lg">
+                                <div className="flex h-8 w-8 items-center justify-center text-lg">
                                   {getFileIcon(file.filename)}
                                 </div>
-                              )}
-                              <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-700 dark:text-gray-300 truncate">
+                              )}{" "}
+                              <div className="min-w-0 flex-1">
+                                <p className="truncate text-sm font-medium text-gray-300">
                                   {file.filename}
                                 </p>
                                 <p className="text-xs text-gray-500">
                                   {formatFileSize(file.size)}
                                 </p>
                               </div>
-                              <div className="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                              <div className="flex space-x-1 opacity-0 transition-opacity group-hover:opacity-100">
                                 <button
                                   onClick={() => downloadFile(file)}
-                                  className="p-1 text-gray-400 hover:text-blue-500 transition-colors"
+                                  className="rounded-2xl p-2 text-gray-400 transition-all duration-200 hover:bg-blue-500/20 hover:text-blue-400"
                                 >
-                                  <Download className="w-4 h-4" />
+                                  <Download className="h-4 w-4" />
                                 </button>
                                 <button
                                   onClick={() =>
                                     handleRemoveAttachment(file._id)
                                   }
-                                  className="p-1 text-gray-400 hover:text-red-500 transition-colors"
+                                  className="rounded-2xl p-2 text-gray-400 transition-all duration-200 hover:bg-red-500/20 hover:text-red-400"
                                 >
-                                  <Trash2 className="w-4 h-4" />
+                                  <Trash2 className="h-4 w-4" />
                                 </button>
                               </div>
                             </div>
@@ -698,22 +692,23 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                       ) : (
                         !showAttachmentInput && (
                           <div
-                            className="p-6 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-center cursor-pointer hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-900/10 transition-all"
+                            className="cursor-pointer rounded-2xl border border-dashed border-gray-600/70 p-6 text-center transition-all duration-200 hover:border-emerald-500/70 hover:bg-emerald-500/10"
                             onClick={() => setShowAttachmentInput(true)}
                           >
-                            <Paperclip className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                            <p className="text-gray-500 dark:text-gray-400">
+                            {" "}
+                            <Paperclip className="mx-auto mb-2 h-8 w-8 text-gray-400" />
+                            <p className="text-gray-400">
                               Add your first attachment
                             </p>
                           </div>
                         )
                       )}
                     </div>
-
                     {/* Links Section */}
                     <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <div className="mb-3 flex items-center justify-between">
+                        {" "}
+                        <h3 className="text-sm font-medium text-gray-300">
                           Links{" "}
                           {currentTodo.links &&
                             currentTodo.links.length > 0 &&
@@ -721,28 +716,27 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                         </h3>
                         <button
                           onClick={() => setShowLinkInput(true)}
-                          className="p-2 text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg transition-all"
+                          className="rounded-2xl p-2 text-purple-400 transition-all duration-200 hover:bg-purple-500/20"
                         >
-                          <Plus className="w-4 h-4" />
+                          <Plus className="h-4 w-4" />
                         </button>
-                      </div>
-
+                      </div>{" "}
                       {/* Add Link Input */}
                       {showLinkInput && (
-                        <div className="space-y-2 mb-3 p-3 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
+                        <div className="mb-4 space-y-3 rounded-2xl border border-dashed border-gray-600/70 p-4">
                           <input
                             type="url"
                             value={newLinkUrl}
                             onChange={(e) => setNewLinkUrl(e.target.value)}
                             placeholder="Enter URL..."
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                            className="w-full rounded-2xl border border-gray-600/70 bg-gray-700/90 px-4 py-3 text-white transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-purple-500"
                           />
                           <input
                             type="text"
                             value={newLinkTitle}
                             onChange={(e) => setNewLinkTitle(e.target.value)}
                             placeholder="Link title (optional)..."
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                            className="w-full rounded-2xl border border-gray-600/70 bg-gray-700/90 px-4 py-3 text-white transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-purple-500"
                           />
                           <input
                             type="text"
@@ -751,15 +745,15 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                               setNewLinkDescription(e.target.value)
                             }
                             placeholder="Description (optional)..."
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                            className="w-full rounded-2xl border border-gray-600/70 bg-gray-700/90 px-4 py-3 text-white transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-purple-500"
                           />
                           <div className="flex items-center space-x-2">
                             <button
                               onClick={handleAddLink}
                               disabled={!newLinkUrl.trim()}
-                              className="p-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                              className="rounded-2xl bg-gradient-to-r from-purple-600 to-purple-700 p-3 text-white shadow-sm transition-all duration-200 hover:from-purple-700 hover:to-purple-800 disabled:cursor-not-allowed disabled:opacity-50"
                             >
-                              <Save className="w-4 h-4" />
+                              <Save className="h-4 w-4" />
                             </button>
                             <button
                               onClick={() => {
@@ -768,52 +762,51 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                                 setNewLinkTitle("");
                                 setNewLinkDescription("");
                               }}
-                              className="p-2 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all"
+                              className="rounded-2xl p-3 text-gray-400 transition-all duration-200 hover:bg-gray-700/50"
                             >
-                              <X className="w-4 h-4" />
+                              <X className="h-4 w-4" />
                             </button>
                           </div>
                         </div>
-                      )}
-
+                      )}{" "}
                       {/* Links List */}
                       {currentTodo.links && currentTodo.links.length > 0 ? (
                         <div className="space-y-2">
                           {currentTodo.links.map((link) => (
                             <div
                               key={link._id}
-                              className="flex items-center space-x-3 p-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all group"
+                              className="group flex items-center space-x-3 rounded-2xl border border-gray-700/50 p-4 transition-all duration-200 hover:bg-gray-700/30"
                             >
-                              <LinkIcon className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                              <div className="flex-1 min-w-0">
+                              <LinkIcon className="h-5 w-5 flex-shrink-0 text-purple-400" />
+                              <div className="min-w-0 flex-1">
                                 <a
                                   href={link.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 truncate block"
+                                  className="block truncate text-sm font-medium text-purple-400 transition-colors duration-200 hover:text-purple-300"
                                 >
                                   {link.title || link.url}
                                 </a>
                                 {link.description && (
-                                  <p className="text-xs text-gray-500 truncate">
+                                  <p className="truncate text-xs text-gray-500">
                                     {link.description}
                                   </p>
                                 )}
                               </div>
-                              <div className="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                              <div className="flex space-x-1 opacity-0 transition-opacity group-hover:opacity-100">
                                 <button
                                   onClick={() =>
                                     window.open(link.url, "_blank")
                                   }
-                                  className="p-1 text-gray-400 hover:text-blue-500 transition-colors"
+                                  className="rounded-2xl p-2 text-gray-400 transition-all duration-200 hover:bg-purple-500/20 hover:text-purple-400"
                                 >
-                                  <ExternalLink className="w-4 h-4" />
+                                  <ExternalLink className="h-4 w-4" />{" "}
                                 </button>
                                 <button
                                   onClick={() => handleRemoveLink(link._id)}
-                                  className="p-1 text-gray-400 hover:text-red-500 transition-colors"
+                                  className="rounded-2xl p-2 text-gray-400 transition-all duration-200 hover:bg-red-500/20 hover:text-red-400"
                                 >
-                                  <Trash2 className="w-4 h-4" />
+                                  <Trash2 className="h-4 w-4" />
                                 </button>
                               </div>
                             </div>
@@ -822,13 +815,11 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                       ) : (
                         !showLinkInput && (
                           <div
-                            className="p-6 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-center cursor-pointer hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/10 transition-all"
+                            className="cursor-pointer rounded-2xl border border-dashed border-gray-600/70 p-6 text-center transition-all duration-200 hover:border-purple-500/70 hover:bg-purple-500/10"
                             onClick={() => setShowLinkInput(true)}
                           >
-                            <LinkIcon className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                            <p className="text-gray-500 dark:text-gray-400">
-                              Add your first link
-                            </p>
+                            <LinkIcon className="mx-auto mb-2 h-8 w-8 text-gray-400" />
+                            <p className="text-gray-400">Add your first link</p>
                           </div>
                         )
                       )}
@@ -872,17 +863,18 @@ const ModernTodoDetailModal = ({ isOpen, onClose, todo }) => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="relative max-w-4xl w-full">
+                  {" "}
+                  <Dialog.Panel className="relative w-full max-w-4xl">
                     <button
                       onClick={() => setImagePreview(null)}
-                      className="absolute top-4 right-4 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/75 transition-colors"
+                      className="absolute right-4 top-4 z-10 rounded-2xl bg-gray-900/80 p-3 text-white shadow-lg backdrop-blur-sm transition-all duration-200 hover:bg-gray-800/90"
                     >
-                      <X className="w-6 h-6" />
+                      <X className="h-6 w-6" />
                     </button>
                     <img
                       src={getImageUrl(imagePreview)}
                       alt={imagePreview.filename}
-                      className="w-full h-auto max-h-[90vh] object-contain rounded-lg"
+                      className="h-auto max-h-[90vh] w-full rounded-3xl object-contain shadow-2xl"
                       onError={(e) => {
                         console.error("Failed to load image:", e);
                       }}
